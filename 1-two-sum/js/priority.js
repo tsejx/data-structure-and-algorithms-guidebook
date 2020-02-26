@@ -7,12 +7,12 @@
 const twoSum = function(nums, target) {
   const o = {};
   for (let i = 0; i < nums.length; i++) {
-    const current = nums[i];
-    const match = target - current;
+    const cur = nums[i];
+    const match = target - cur;
     if (match in o) {
       return [o[match], i];
     } else {
-      o[current] = i;
+      o[cur] = i;
     }
   }
 };
