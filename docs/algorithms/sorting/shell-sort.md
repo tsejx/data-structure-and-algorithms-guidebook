@@ -6,7 +6,7 @@ group:
   title: 排序
   order: 2
 title: 希尔排序
-order: 4
+order: 5
 ---
 
 # 希尔排序
@@ -32,10 +32,10 @@ order: 4
 
 ## 算法分析
 
-- 平均时间复杂度：O(Nlog2N)
+- 平均时间复杂度：`O(nlog2n)`
 - 最佳时间复杂度：
-- 最差时间复杂度：O(N^2)
-- 空间复杂度：O(1)
+- 最差时间复杂度：`O(n^2)`
+- 空间复杂度：`O(1)`
 - 稳定性：不稳定
 - 复杂性：较复杂
 
@@ -43,13 +43,21 @@ order: 4
 
 开始时，`gap` 取值较大，子序列中的元素较少，排序速度快，克服了直接插入排序的缺点；其次，`gap` 值逐渐变小后，虽然子序列的元素逐渐变多，但大多元素已基本有序，所以继承了直接插入排序的优点，能以近线性的速度排好序。
 
-最优的空间复杂度为开始元素已排序，则空间复杂度为 `0`；最差的空间复杂度为开始元素为逆排序，则空间复杂度为 `O(N)`；平均的空间复杂度为 `O(1)` 希尔排序并不只是相邻元素的比较，有许多跳跃式的比较，难免会出现相同元素之间的相对位置发生变化。比如上面的例子中希尔排序中相等数据 5 就交换了位置，所以希尔排序是不稳定的算法。
+最优的空间复杂度为开始元素已排序，则空间复杂度为 `0`；最差的空间复杂度为开始元素为逆排序，则空间复杂度为 `O(n)`；平均的空间复杂度为 `O(1)` 希尔排序并不只是相邻元素的比较，有许多跳跃式的比较，难免会出现相同元素之间的相对位置发生变化。比如上面的例子中希尔排序中相等数据 5 就交换了位置，所以希尔排序是不稳定的算法。
+
+```jsx | inline
+import React from 'react';
+import img from '../../assets/sorting/shell-sort.jpeg';
+
+export default () => <img alt="希尔排序" src={img} width="80%" height="80%" />;
+```
 
 ## 算法实现
 
 ```js
 const shellSort = function(arr) {
   let len = arr.length,
+    temp,
     gap = 1;
 
   // 动态定义间隔序列
@@ -60,9 +68,12 @@ const shellSort = function(arr) {
   for (gap; gap > 0; gap = Math.floor(gap / 5)) {
     for (let i = gap; i < len; i++) {
       temp = arr[i];
-      for (let j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+      let j = i - gap;
+
+      for (; j >= 0 && arr[j] > temp; j -= gap) {
         arr[j + gap] = arr[j];
       }
+
       arr[j + gap] = temp;
     }
   }
@@ -70,3 +81,9 @@ const shellSort = function(arr) {
   return arr;
 };
 ```
+
+---
+
+**参考资料：**
+
+- [五分钟学会一个高难度算法：希尔排序](https://juejin.im/post/5bf9f2285188256b0f5832a0)

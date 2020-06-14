@@ -6,7 +6,7 @@ group:
   title: 排序
   order: 2
 title: 桶排序
-order: 9
+order: 10
 ---
 
 # 桶排序

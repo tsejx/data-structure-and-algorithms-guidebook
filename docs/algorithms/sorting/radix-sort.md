@@ -6,7 +6,7 @@ group:
   title: 排序
   order: 2
 title: 基数排序
-order: 10
+order: 11
 ---
 
 # 基数排序

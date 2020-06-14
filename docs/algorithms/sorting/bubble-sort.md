@@ -6,12 +6,12 @@ group:
   title: 排序
   order: 2
 title: 冒泡排序
-order: 1
+order: 2
 ---
 
 # 冒泡排序
 
-**冒泡排序**（Bubble Sort）是一种交换排序，核心是冒泡，把数组中最小的那个往上冒，冒的过程就是和他相邻的元素交换。
+**冒泡排序**（Bubble Sort）是一种 `交换排序`，核心是冒泡，把数组中最小的那个往上冒，冒的过程就是和他 `相邻的元素` 交换。
 
 重复走访要排序的数列，通过两两比较相邻记录的排序码。排序过程中每次从后往前冒一个最小值，且每次能确定一个数在序列中的最终位置。若发生逆序，则交换；有俩种方式进行冒泡，一种是先把小的冒泡到前边去，另一种是把大的元素冒泡到后边。
 
@@ -45,11 +45,10 @@ export default () => <img alt="冒泡排序" src={img} width="64%" height="64%" 
 
 解析说明：
 
-冒泡排序设计相邻两两数据的比较，故需要嵌套两层 `for` 循环来控制
+冒泡排序设计相邻两两数据的比较，故需要嵌套两层 `for` 循环来控制：
 
-外层循环 `n` 次，内存最多时循环 `n-1` 次，最少循环 `0` 次，平均循环 `(n - 1) / 2` 次
-
-所以循环体内总的比较交换次数为 `n * (n - 1) / 2 = (n^2 - n) / 2`
+- 外层循环 `n` 次，内存最多时循环 `n-1` 次，最少循环 `0` 次，平均循环 `(n - 1) / 2` 次
+- 所以循环体内总的比较交换次数为 `n * (n - 1) / 2 = (n^2 - n) / 2`
 
 按照计算时间复杂度的规则，去掉常数、去掉最高项系数，其复杂度为 `O(n^2)`
 
@@ -67,15 +66,18 @@ export default () => <img alt="冒泡排序" src={img} width="64%" height="64%" 
 const bubbleSort = function (arr) {
     const len = arr.length;
 
+    // 外循环控制从头到尾的比较+交换总共有多少轮
     for (let i = 0; i < len; i++) {
-        // 遍历未冒泡的序列 len - 1 - i（队尾 - 已经遍历过的索引）
-        for (let j = 0; j < len - 1 - i; j++  {
-            if (arr[j] > arr[j + 1]) {
-              // 交换位置
-              [arr[j], arr[j+1]] = [arr[j+1], arr[j]]
-            }
-        })
+      // 内循环用于完成每轮遍历过程中的重复比较+交换
+      for (let j = 0; j < len - 1 - i; j++  {
+          if (arr[j] > arr[j + 1]) {
+            // 交换位置
+            [arr[j], arr[j+1]] = [arr[j+1], arr[j]]
+          }
+      })
     }
+
+    return arr;
 }
 ```
 
@@ -103,34 +105,35 @@ const bubbleSort = function(arr) {
 };
 ```
 
-方法三：
+方法三：正向冒泡+反向冒泡结合
 
 ```js
 const bubbleSort = function(arr) {
-  let low = 0;
   // 设置变量的初始值
-  let high = arr.length - 1;
-  let i;
+  let index,
+    low = 0,
+    high = arr.length - 1;
 
   while (low < high) {
     // 正向冒泡，找到最大值
-    for (i = low; i < high; ++i) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+    for (index = low; index < high; ++index) {
+      if (arr[index] > arr[index + 1]) {
+        [arr[index], arr[index + 1]] = [arr[index + 1], arr[index]];
       }
     }
-
     // 修改 high 值，前移一位
     --high;
 
-    for (i = high; i > low; --i) {
-      if (arr[i] < arr[i - 1]) {
-        [arr[i], arr[i - 1]] = [arr[i - 1], arr[i]];
+    // 反向冒泡，找到最小值
+    for (index = high; index > low; --index) {
+      if (arr[index] < arr[index - 1]) {
+        [arr[index], arr[index - 1]] = [arr[index - 1], arr[index]];
       }
     }
     // 修改 low 值，后移一位
     ++low;
   }
+
   return arr;
 };
 ```

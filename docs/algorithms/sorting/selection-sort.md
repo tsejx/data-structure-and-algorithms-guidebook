@@ -6,7 +6,7 @@ group:
   title: 排序
   order: 2
 title: 选择排序
-order: 2
+order: 3
 ---
 
 # 选择排序
@@ -46,11 +46,15 @@ export default () => <img alt="选择排序" src={img} width="64%" height="64%" 
 ```js
 const selectionSort = function(arr) {
   const len = arr.length;
+  // 用于缓存未排序区间最小值的索引
+  let minIndex;
 
+  // 外循环遍历未排序部分元素（除了最后一个不用遍历，因为是仅有的未排序元素）
   for (let i = 0; i < len - 1; i++) {
     // 未排序序列中最小值的索引
-    let minIndex = i;
+    minIndex = i;
 
+    // 内循环未排序区间，i 是左边界，len 是右边界
     for (let j = i + 1; j < len; j++) {
       // 当前值比当前最小值小时，标识当前值未最小值
       if (arr[j] < arr[minIndex]) {
@@ -58,8 +62,11 @@ const selectionSort = function(arr) {
       }
     }
 
-    // 使用解构赋值交换当前索引的值
-    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    // 如果缓存的最小值非未排序区间首个元素
+    // 则使用解构赋值交换当前索引的值
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
   }
 
   return arr;

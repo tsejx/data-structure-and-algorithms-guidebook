@@ -6,7 +6,7 @@ group:
   title: 排序
   order: 2
 title: 计数排序
-order: 8
+order: 9
 ---
 
 # 计数排序

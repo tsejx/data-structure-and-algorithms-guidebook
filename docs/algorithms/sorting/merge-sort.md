@@ -6,12 +6,14 @@ group:
   title: 排序
   order: 2
 title: 归并排序
-order: 5
+order: 6
 ---
 
 # 归并排序
 
-**归并排序**（Merge sort）是建立在归并操作上的一种有效的排序算法。该算法是采用 **分治法**（Divide and Conquer）的一个非常典型的应用。
+**归并排序**（Merge sort）是建立在归并操作上的一种有效的排序算法。
+
+该算法是采用 **分治法**（Divide and Conquer）的一个非常典型的应用。
 
 作为一种典型的分而治之思想的算法应用，归并排序的实现由两种方法：
 
@@ -22,13 +24,13 @@ order: 5
 
 归并排序是用分治思想，分治模式在每层递归上有三个步骤：
 
-- 分解（Divide）：将 `n` 个元素分成含 `n / 2` 个元素的子序列
-- 解决（Comquer）：用合并排序法对两个子序列递归的排序
-- 合并（Combine）：合并两个已排序的子序列已得到排序结果
+- **分解**（Divide）：将 `n` 个元素分成含 `n / 2` 个元素的子序列
+- **解决**（Comquer）：用合并排序法对两个子序列递归的排序
+- **合并**（Combine）：合并两个已排序的子序列已得到排序结果
 
 ### 迭代法
 
-1. 申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后 u 的序列
+1. 申请**临时空间**，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列
 2. 设定两个指针，最初位置分别为两个已经排序序列的起始位置
 3. 比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置
 4. 重复步骤 3 直到某一指针达到序列尾
@@ -44,7 +46,7 @@ order: 5
 import React from 'react';
 import img from '../../assets/sorting/merge-sort.gif';
 
-export default () => <img alt="归并排序" src={img} width="64%" height="64%" />;
+export default () => <img alt="归并排序" src={img} width="45%" height="45%" />;
 ```
 
 ## 算法分析
@@ -62,35 +64,60 @@ export default () => <img alt="归并排序" src={img} width="64%" height="64%" 
 
 归并排序算法中，归并最后到底都是相邻元素之间的比较交换，并不会发生相同元素的相对位置发生变化，故是稳定性算法。
 
+```jsx | inline
+import React from 'react';
+import img from '../../assets/sorting/merge-sort.png';
+
+export default () => <img alt="归并排序" src={img} width="70%" height="70%" />;
+```
+
 ## 算法实现
 
 ```js
+// 采用自上而下的递归方法
+
+// 分（切割）
 function mergeSort(arr) {
-  //采用自上而下的递归方法
-  var len = arr.length;
-  if (len < 2) {
+  let len = arr.length;
+
+  // 当分裂到数组元素仅存一个或没有时，表示无法再继续分裂了
+  // 则返回数组进行归并
+  if (len <= 1) {
     return arr;
   }
-  var middle = Math.floor(len / 2),
-    left = arr.slice(0, middle),
-    right = arr.slice(middle);
-  return merge(mergeSort(left), mergeSort(right));
+
+  // 计算切割点
+  let mid = Math.floor(len / 2),
+    // 递归切割左子数组，然后归并为有序数组
+    left = mergeSort(arr.slice(0, mid)),
+    // 递归切割右子数组，然后归并为有序数组
+    right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
 }
 
+// 治（归并）
 function merge(left, right) {
-  var result = [];
+  let sorted = [];
+
   while (left.length && right.length) {
     if (left[0] <= right[0]) {
-      result.push(left.shift());
+      // 左边数组首个元素比右边数组首个元素小
+      // 将左边数组首个元素推出原数组，并推入已排序数组
+      sorted.push(left.shift());
     } else {
-      result.push(right.shift());
+      // 右边数组首个元素比左边数组首个元素小
+      // 将有边数组首个元素推出原数组，并推入已排序数组
+      sorted.push(right.shift());
     }
   }
 
-  while (left.length) result.push(left.shift());
+  // 走到这步，说明某边数组已经空了
+  // 所以如果另一边数组还有一个元素，则直接推出原数组，并推入已排序数组
+  while (left.length) sorted.push(left.shift());
+  while (right.length) sorted.push(right.shift());
 
-  while (right.length) result.push(right.shift());
-  return result;
+  return sorted;
 }
 ```
 
