@@ -1,0 +1,4 @@
+node_modules/*
+todo/*.md
+.umi/
+yarn.lock
