@@ -1,4 +1,4 @@
-export default {
+const config = {
   mode: 'site',
   hash: true,
   title: 'Data Structure and Algorithms Guidebook',
@@ -8,6 +8,7 @@ export default {
   favicon: './favicon.ico',
   logo: 'http://img.mrsingsing.com/data-structure-and-algorithms-favicon.svg',
   exportStatic: {},
+  dynamicImport: {},
   navs: [
     null,
     {
@@ -16,3 +17,9 @@ export default {
     },
   ],
 };
+
+if (process.env.NODE_ENV !== 'development') {
+  config.ssr = {};
+}
+
+export default config;

@@ -4,6 +4,7 @@
   "description": "Collection about leetcode pratice",
   "main": "index.js",
   "scripts": {
+    "start": "yarn run dev",
     "dev": "yarn run dumi dev --port=8090",
     "lint:md": "lint-md *.md",
     "lint:fix": "lint-md *.md --fix",
@@ -26,7 +27,7 @@
   },
   "homepage": "https://github.com/tsejx/leetcode#readme",
   "devDependencies": {
-    "dumi": "^1.0.31",
+    "dumi": "^1.0.33",
     "lint-md": "^0.2.0"
   }
 }
