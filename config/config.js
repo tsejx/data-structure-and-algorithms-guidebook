@@ -1,6 +1,5 @@
 const config = {
   mode: 'site',
-  hash: true,
   title: 'Data Structure and Algorithms Guidebook',
   description: '数据结构与算法完全知识体系',
   base: '/data-structure-and-algorithms-guidebook/',
