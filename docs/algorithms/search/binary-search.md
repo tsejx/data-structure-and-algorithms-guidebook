@@ -11,9 +11,15 @@ order: 1
 
 # 二分查找法
 
-**二分查找算法**（Binary Search Algorithm），也称**折半搜索算法**（Half-interval Search Algorithm）、**对数搜索算法**（Logarithmic Search Algorithm），是一种在 <strong style="color: red">有序数组</strong> 中查找某一特定元素的搜索算法。
+**二分查找算法**（Binary Search Algorithm），也称 **折半搜索算法**（Half-interval Search Algorithm）、**对数搜索算法**（Logarithmic Search Algorithm），是一种在 <strong style="color: red">有序数组</strong> 中查找某一特定元素的搜索算法。
 
 搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。
+
+- 关键词：排序、搜索
+- 模式识别：有序或者部分有序，基本使用二分搜索及其变种
+- 算法描述：丢弃一半的数据
+
+<br />
 
 ```jsx | inline
 import React from 'react';
@@ -22,11 +28,13 @@ import img from '../../assets/index/binary-search.jpg';
 export default () => <img alt="二分查找法" src={img} width="45%" height="45%" />;
 ```
 
-二分查找法的思想不仅仅可以用在有序数组里元素的查找上。如果是一个问题，待查找的数是整数，且知道范围，大概就可以通过逐步排查，缩小问题的规模的方式找到，这种算法也是二分查找算法。
+<br />
+
+二分查找法的思想不仅仅可以用在 **有序数组** 里元素的查找上。如果是一个问题，待查找的数是整数，且知道范围，大概就可以通过逐步排查，缩小问题的规模的方式找到，这种算法也是二分查找算法。
 
 我们平常写程序，定位问题其实通常也用的是这个思路。在适当的地方做一些代码输出，逐步缩小范围，最后找到了有 BUG 的那一行或几行代码。
 
-初学写二分查找的问题是：跳步厉害，写下 `low = mid` 或者 `high = mid - 1` 等代码的时候，一定要搞清楚是什么意思，必要的时候写上注释，帮助自己思考和以后复查代码。
+初学写二分查找的问题是：跳步厉害，写下 `left = mid` 或者 `right = mid - 1` 等代码的时候，一定要搞清楚是什么意思，必要的时候写上注释，帮助自己思考和以后复查代码。
 
 把 `待搜索的目标值` 留在最后判断，在循环体内不断地把不符合题目要求的子区间排除掉，在退出循环以后，因为只剩下 1 个数没有看到，它要么是目标元素，要么不是目标元素，单独判断即可。
 
@@ -47,23 +55,23 @@ const binarySearch = function(arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
-    low = 0,
-    high = arr.length - 1;
+    left = 0,
+    right = arr.length - 1;
 
-  while (low <= high) {
-    mid = Math.floor((low + high) / 2);
+  while (left <= right) {
+    mid = Math.floor((left + right) / 2);
 
     if (arr[mid] === target) {
       return mid;
     } else if (arr[mid] < tartget) {
       // 由数组的有序性可知，mid 以及 mid 的左边都小于等于 target
-      // 下一轮搜索的范围是 [mid + 1, high]
-      low = mid + 1;
+      // 下一轮搜索的范围是 [mid + 1, right]
+      left = mid + 1;
     } else {
       // 此时 arr[mid] > target
       // 由数组的有序性可知，mid 以及 mid 的右边都小于等于 target
-      // 下一轮搜索的范围是 [low, mid - 1]
-      high = mid - 1;
+      // 下一轮搜索的范围是 [left, mid - 1]
+      right = mid - 1;
     }
   }
 
@@ -74,18 +82,18 @@ const binarySearch = function(arr, target) {
 ### 递归实现
 
 ```js
-const binarySearch = function(arr, target, low, high) {
-  low = low || 0;
-  high = high || arr.length - 1;
+const binarySearch = function(arr, target, left, right) {
+  left = left || 0;
+  right = right || arr.length - 1;
 
-  const mid = Math.floor((low + high) / 2);
+  const mid = Math.floor((left + right) / 2);
 
   if (arr[mid] === target) {
     return mid;
   } else if (target > arr[mid]) {
-    return binarySearch(arr, target, mid + 1, high);
+    return binarySearch(arr, target, mid + 1, right);
   } else {
-    return binarySearch(arr, target, low, mid - 1);
+    return binarySearch(arr, target, left, mid - 1);
   }
 
   return -1;
@@ -94,9 +102,9 @@ const binarySearch = function(arr, target, low, high) {
 
 三个容易出错的地方：
 
-1. 循环退出条件：注意是 `low <= high`，而不是 `low < high`
-2. `mid` 的取值：改进写法 `(low + (high - low)) / 2`，位运算 `low + ((high - low)>>1)`
-3. `low` 和 `high` 的更新：`low = mid + 1` 和 `high = mid - 1`
+1. **循环退出条件**：注意是 `left <= right`，而不是 `left < right`
+2. **`mid` 的取值**：改进写法 `(left + (right - left)) / 2`，位运算 `left + ((right - left) >> 1)`
+3. **`left` 和 `right` 的更新**：`left = mid + 1` 和 `right = mid - 1`
 
 ## 局限性
 
@@ -124,10 +132,10 @@ const binarySearch = function(arr, target, low, high) {
 
 ## 常见变形问题
 
-- 查找第一个值等于给定值的元素
-- 查找最后一个值等于给定值的元素
-- 查找第一个大于等于给定值的元素
-- 查找最后一个小于等于给定值的元素
+- 查找 **第一个值等于** 给定值的元素
+- 查找 **最后一个值等于** 给定值的元素
+- 查找 **第一个大于等于** 给定值的元素
+- 查找 **最后一个小于等于** 给定值的元素
 
 ### 查找第一个值等于给定值的元素
 
@@ -136,21 +144,21 @@ const binarySearch = function(arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
-    low = 0,
-    high = arr.length - 1;
+    left = 0,
+    right = arr.length - 1;
 
-  while (low <= high) {
-    mid = Math.floor((low + high) / 2);
+  while (left <= right) {
+    mid = Math.floor((left + right) / 2);
 
     if (arr[mid] > value) {
-      high = mid - 1;
+      right = mid - 1;
     } else if (arr[mid] < value) {
-      low = mid + 1;
+      left = mid + 1;
     } else {
       if (mid === 0 || arr[mid - 1] !== target) {
         return mid;
       } else {
-        high = mid - 1;
+        right = mid - 1;
       }
     }
   }
@@ -165,7 +173,7 @@ const binarySearch = function(arr, target) {
 
 如果 `mid` 等于 0，那么这个元素已经是数组的第一个元素了，那么它肯定是我们要找的；如果 `mid` 不等于 0，但 `arr[mid]` 的前一个元素 `arr[mid - 1]` 不等于 `target`，那么说明 `arr[mid]` 就是我们要找的第一个值等于给定值的元素。
 
-如果经过检查之后发现 `arr[mid]` 前面的一个元素 `arr[mid - 1]` 页等于 `target`，那说明此时的 `arr[mid]` 肯定不是我们要找的第一个值等于给定值的元素。那我们就更新 `high = mid - 1`，因为要找的元素肯定出现在 `[low, mid - 1]` 之间。
+如果经过检查之后发现 `arr[mid]` 前面的一个元素 `arr[mid - 1]` 页等于 `target`，那说明此时的 `arr[mid]` 肯定不是我们要找的第一个值等于给定值的元素。那我们就更新 `right = mid - 1`，因为要找的元素肯定出现在 `[left, mid - 1]` 之间。
 
 ### 查找最后一个值等于给定值的元素
 
@@ -174,21 +182,21 @@ const binarySearch = function(arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
-    low = 0,
-    high = arr.length - 1;
+    left = 0,
+    right = arr.length - 1;
 
-  while (low <= high) {
-    mid = Math.floor((low + high) / 2);
+  while (left <= right) {
+    mid = Math.floor((left + right) / 2);
 
     if (arr[mid] > target) {
-      high = mid - 1;
+      right = mid - 1;
     } else if (arr[mid] < target) {
-      low = mid + 1;
+      left = mid + 1;
     } else {
       if (mid === arr.length - 1 || arr[mid + 1] !== target) {
         return mid;
       } else {
-        low = mid + 1;
+        left = mid + 1;
       }
     }
   }
@@ -199,7 +207,7 @@ const binarySearch = function(arr, target) {
 
 如果 `arr[mid]` 这个元素已经是数组中的最后一个元素了，那它肯定是我们要找的；如果 `arr[mid]` 的后一个元素 `arr[mid+1]` 不等于 `target`，那也说明 `arr[mid]` 就是我们要找的最后一个值等于给定值的元素。
 
-如果我们经过检查之后，发现 `arr[mid]` 后面的一个元素 `arr[mid+1]` 也等于 `target`，那说明但那个钱的这个 `arr[mid]` 并不是最后一个值等于给定值的元素。我们就更新 `low = mid + 1`，因为要找的元素肯定出现在 `[mid + 1, high]` 之间。
+如果我们经过检查之后，发现 `arr[mid]` 后面的一个元素 `arr[mid+1]` 也等于 `target`，那说明但那个钱的这个 `arr[mid]` 并不是最后一个值等于给定值的元素。我们就更新 `left = mid + 1`，因为要找的元素肯定出现在 `[mid + 1, right]` 之间。
 
 ### 查找第一个大于等于给定值的元素
 
@@ -210,20 +218,20 @@ const binarySearch = function(arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
-    low = 0,
-    high = arr.length - 1;
+    left = 0,
+    right = arr.length - 1;
 
-  while (low <= high) {
-    mid = Math.floor((low + high) / 2);
+  while (left <= right) {
+    mid = Math.floor((left + right) / 2);
 
     if (arr[mid] >= target) {
       if (mid === 0 || arr[mid - 1] < target) {
         return mid;
       } else {
-        high = mid - 1;
+        right = mid - 1;
       }
     } else {
-      low = mid + 1;
+      left = mid + 1;
     }
   }
 
@@ -231,11 +239,11 @@ const binarySearch = function(arr, target) {
 };
 ```
 
-如果 `arr[mid]` 小于要查找的值 `target`，那么查找的值肯定在 `[mid+1, high]` 之间，所以，我们要更新 `low = mid + 1`。
+如果 `arr[mid]` 小于要查找的值 `target`，那么查找的值肯定在 `[mid+1, right]` 之间，所以，我们要更新 `left = mid + 1`。
 
 对于 `arr[mi]` 大于等于给定值 `target` 的情况，我们要先看下 `arr[mid]` 前面已经没有元素，或者前面一个元素小于要查找的值 `target`，那么 `arr[mid]` 就是我们要找的元素。
 
-如果 `arr[mid - 1]` 也大于等于要查找的值 `target`，那么说明要查找的元素在 `[low, mid - 1]` 之间，所以，我们要将 `high` 更新为 `mid - 1`。
+如果 `arr[mid - 1]` 也大于等于要查找的值 `target`，那么说明要查找的元素在 `[left, mid - 1]` 之间，所以，我们要将 `right` 更新为 `mid - 1`。
 
 ### 查找最后一个小于等于给定值的元素
 
@@ -246,19 +254,19 @@ const binarySearch = function(arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
-    low = 0,
-    high = arr.length - 1;
+    left = 0,
+    right = arr.length - 1;
 
-  while (low <= high) {
-    mid = Math.floor((low + high) / 2);
+  while (left <= right) {
+    mid = Math.floor((left + right) / 2);
 
     if (arr[mid] > target) {
-      high = mid - 1;
+      right = mid - 1;
     } else {
       if (mid === 0 || arr[mid - 1] < target) {
         return mid;
       } else {
-        low = mid + 1;
+        left = mid + 1;
       }
     }
   }
@@ -271,52 +279,52 @@ const binarySearch = function(arr, target) {
 
 ## 减治思想 + 二分查找解题步骤
 
-1. 把循环可以继续的条件写法 `while( low < high )`
+1. 把循环可以继续的条件写法 `while( left < right )`
 2. 写 `if` 和 `else` 语句的时候，思考当 `arr[mid]` 满足什么性质时，`arr[mid]` 不是目标元素，接着判断 `mid` 的左边有没有可能存在目标元素，`mid` 的右边有没有可能存在目标元素
 
 只可能出现以下两种情况：
 
 把待搜索区间分为两个部分：
 
-1. `[low, mid]`，设置边界 `high = mid`
-2. `[mid + 1, high]`，设置边界 `low = mid + 1`
+1. `[left, mid]`，设置边界 `right = mid`
+2. `[mid + 1, right]`，设置边界 `left = mid + 1`
 
 ```js
 if (check(mid)) {
-  high = mid;
+  right = mid;
 } else {
-  low = mid + 1;
+  left = mid + 1;
 }
 ```
 
-1. `[low, mid]`，设置边界 `high = mid - 1`
-2. `[mid + 1, high]`，设置边界 `low = mid`
+1. `[left, mid]`，设置边界 `right = mid - 1`
+2. `[mid + 1, right]`，设置边界 `left = mid`
 
 ```js
 if (check(mid)) {
-  high = mid + 1;
+  right = mid + 1;
 } else {
-  low = mid;
+  left = mid;
 }
 ```
 
 3. 根据 `边界收缩行为` 修改取中间数的行为
 
-- `const mid = (low + high) / 2` 在 `low` 和 `high` 较大的时候会发生整形溢出（Java）
+- `const mid = (left + right) / 2` 在 `left` 和 `right` 较大的时候会发生整形溢出（Java）
 
-建议写法 `const mid = low + (high - low) / 2`
+建议写法 `const mid = left + (right - left) / 2`
 
 - `/` 是整数除法，默认的取整行为是下取整，那么它会带来一个问题
 
-`const mid = low + (high - low) / 2` 永远取不到有边界 `high`
+`const mid = left + (right - left) / 2` 永远取不到有边界 `right`
 
-在面对 `low = mid` 和 `high = mid - 1` 这种边界收缩行为时，就有可能产生死循环
+在面对 `left = mid` 和 `right = mid - 1` 这种边界收缩行为时，就有可能产生死循环
 
-`const mid = low + (high - lef) / 2` 这种中间数的取法，由于 `/` 下取整的原因永远取不到 ➡ 右边界。
+`const mid = left + (right - lef) / 2` 这种中间数的取法，由于 `/` 下取整的原因永远取不到 ➡ 右边界。
 
 在待搜索区间只有两个元素，且 `边界收缩行为` 把 `mid` 分到右边子区间的时候，`可能` 会产生死循环。
 
-4. 退出循环以后，看是否需要对 `arr[low]` 是否是目标元素再做一次检查。
+4. 退出循环以后，看是否需要对 `arr[left]` 是否是目标元素再做一次检查。
 
 解题步骤：
 
@@ -326,10 +334,11 @@ if (check(mid)) {
 
 ## 总结
 
-二分查找的核心思想理解起来非常简单，有点类似分治思想。即每次都通过跟区间中的中间元素对比，将待查找的区间缩小为一半，直到找到要查找的元素，或者区间被缩小为 0。但是二分查找的代码实现比较容易写错。你需要着重掌握它的三个容易出错的地方：循环退出条件、`mid` 的取值，`low` 和 `high` 的更新。
+二分查找的核心思想理解起来非常简单，有点类似分治思想。即每次都通过跟区间中的中间元素对比，将待查找的区间缩小为一半，直到找到要查找的元素，或者区间被缩小为 0。但是二分查找的代码实现比较容易写错。你需要着重掌握它的三个容易出错的地方：循环退出条件、`mid` 的取值，`left` 和 `right` 的更新。
 
 ---
 
 **参考资料：**
 
 - [维基百科：二分查找算法](https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B%E6%BC%94%E7%AE%97%E6%B3%95)
+
