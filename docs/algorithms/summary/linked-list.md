@@ -6,15 +6,15 @@ group:
   title: 算法技巧总结
   order: 100
 title: 链表解题技巧
-order: 1
+order: 3
 ---
 
 # 链表解题技巧
 
-当使用 while 循环的时候，需要有判断结束的条件 `while(condition)`，而 coditon 所包含的变量，通常都是需要在循环内变更的。
+当使用 `while` 循环的时候，需要有判断结束的条件 `while(condition)`，而 coditon 所包含的变量，通常都是需要在循环内变更的。
 
 - 对于涉及链表长度的问题，往往会通过两个指针进行几何变换来得到想要的差额==要好好画图理解思考
-- 使用一些临时变量来存储 next 指针，以完成插入删除等操作
+- 使用一些临时变量来存储 `next` 指针，以完成插入删除等操作
 - 对于插入和删除等操作，往往需要一个额外的指针来记录其前面的节点，再编程之前好好思考其间关系效果会比较好
 - 对一些依赖于后面节点才可以完成的操作，使用递归的方式来解决
 - 对于有些题目提前使用循环获得其链表的长度也是一种有效的方法
@@ -23,7 +23,7 @@ order: 1
 
 ## 哑结点
 
-Leetcode 里面传进来的 head 是带有数据的，这个没有任何结点指向 head，因此对 head 的修改有时会比较麻烦，因此可以先建立一个假象结点指向 head，以后需要返回 head 时，直接 `dummy->next` 即可。
+Leetcode 里面传进来的 `head` 是带有数据的，这个没有任何结点指向 `head`，因此对 `head` 的修改有时会比较麻烦，因此可以先建立一个假象结点指向 `head`，以后需要返回 `head` 时，直接 `dummy -> next` 即可。
 
 要对头结点进行操作时，考虑创建哑结点 dummy，使用 `dummy->next` 表示真正的头结点。这样可以避免处理头结点为空的边界问题（例如：NULL 或单结点问题）。
 
@@ -211,3 +211,11 @@ return dummyHead.next;
 - [高效面试之 LeetCode 链表题汇总](https://blog.csdn.net/cqkxboy168/article/details/40464351)
 - [单链表类题目总结（应用双指针）](https://blog.csdn.net/KusanoNEU/article/details/72758159)
 - [LeetCode 链表习题总结](https://blog.csdn.net/zhou373986278/article/details/78223278)
+- [LeetCode 题目总结 - 链表](https://tding.top/archives/551df4d4.html)
+
+位运算
+https://tding.top/archives/fa228c3f.html
+
+
+SQL
+https://tding.top/archives/32d634f4.html
