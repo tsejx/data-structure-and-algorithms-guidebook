@@ -15,10 +15,10 @@ const config = {
       path: 'https://github.com/tsejx/data-structure-and-algorithms-guidebook',
     },
   ],
-};
-
-if (process.env.NODE_ENV !== 'development') {
-  config.ssr = {};
 }
 
-export default config;
+if (process.env.NODE_ENV !== 'development') {
+  config.ssr = {}
+}
+
+export default config
