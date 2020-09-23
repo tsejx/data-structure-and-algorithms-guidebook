@@ -18,7 +18,7 @@ order: 1
 
 ### JavaScript
 
-- [👍🏻 javascript-algorithm（52000+stars）](https://github.com/trekhleb/javascript-algorithms)
+- [👍🏻 javascript-algorithm（52000+stars）经典算法汇总](https://github.com/trekhleb/javascript-algorithms)
 - [algorithm-visualizer：从代码可视化算法的交互式在线平台（23000+stars）](https://github.com/algorithm-visualizer/algorithm-visualizer)
 - [👍🏻 LeetCode（15000stars+）](https://github.com/azl397985856/leetcode)
 - [JavaScript 算法（3800+stars）](https://github.com/apachecn/Interview/tree/master/docs/Algorithm/Leetcode/JavaScript)
@@ -92,4 +92,3 @@ order: 1
 ## Q&A
 
 - [怎么学好数据结构？](https://www.zhihu.com/question/19830721)
-
