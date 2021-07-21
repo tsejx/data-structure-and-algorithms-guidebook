@@ -11,7 +11,6 @@ order: 680
 
 # 验证回文字符串 II
 
-
 ## 解题思路
 
 如何判断自己解决回文类问题的解法是否 **高效**？其中一个很重要的标准，就是看你对回文字符串的对称特性利用得是否彻底。
@@ -27,13 +26,14 @@ order: 680
 - 辅助函数的双指针在循环时，如果字符不同，就一票否决，不像上面那样给机会
 
 ```js
-const validPalindrome = function (s) {
-  let start = 0, end = s.length - 1;
+const validPalindrome = function(s) {
+  let start = 0,
+    end = s.length - 1;
 
-  while(start < end) {
+  while (start < end) {
     if (s[start] !== s[end]) {
       // 转为判断删掉字符后的子字符，是否是回文串
-      return isPalindrome(s, start + 1, end) || isPalindrome(s, start, end - 1)
+      return isPalindrome(s, start + 1, end) || isPalindrome(s, start, end - 1);
     }
 
     start++;
@@ -41,46 +41,48 @@ const validPalindrome = function (s) {
   }
 
   function isPalindrome(str, start, end) {
-    while(start < end) {
+    while (start < end) {
       // 一票否决
       if (str[start] !== str[end]) {
-        return false
+        return false;
       }
 
       start++;
       end--;
     }
 
-    return true
+    return true;
   }
 
-  return true
-}
+  return true;
+};
 ```
 
 ### 贪心算法
 
 ```js
-const validPalindrome = function (s) {
-  let start = 0, end = s.length - 1;
+const validPalindrome = function(s) {
+  let start = 0,
+    end = s.length - 1;
 
-  while(start <= end) {
+  while (start <= end) {
     if (s[start] === s[end]) {
-      start++
-      end++
+      start++;
+      end++;
     } else {
       break;
     }
   }
 
   if (start > end) {
-    return true
+    return true;
   } else {
-    let tmpStart = start, tmpEnd = end;
+    let tmpStart = start,
+      tmpEnd = end;
 
     // 删除做指针指向的字符
     start++;
-    while(start <= end) {
+    while (start <= end) {
       if (s[start] === s[end]) {
         start++;
         end--;
@@ -89,14 +91,14 @@ const validPalindrome = function (s) {
       }
     }
 
-    if (start > end) return true
+    if (start > end) return true;
 
     // 此路不通，复位，删除缩小范围的结束指针指向的字符
     start = tmpStart;
     end = tmpEnd;
-    end --;
+    end--;
 
-    while(start <= end) {
+    while (start <= end) {
       if (s[start] === s[end]) {
         start++;
         end--;
@@ -106,10 +108,10 @@ const validPalindrome = function (s) {
     }
 
     if (start > end) {
-      return true
+      return true;
     }
   }
 
   return false;
-}
+};
 ```

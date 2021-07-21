@@ -3,8 +3,8 @@ nav:
   title: 数据结构
   order: 1
 group:
-  title: 栈与队列
-  order: 3
+  title: 抽象类型
+  order: 2
 title: 队列
 order: 2
 ---

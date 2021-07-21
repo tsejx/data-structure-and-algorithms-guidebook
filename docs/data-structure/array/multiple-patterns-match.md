@@ -4,7 +4,7 @@ nav:
   order: 1
 group:
   title: 数组
-  order: 1
+  order: 3
 title: 多模式匹配
 order: 6
 ---

@@ -5,13 +5,26 @@ nav:
 group:
   title: 搜索
   order: 3
-title: 深度优先搜索
-order: 2
+title: 树图 - 深度优先搜索
+order: 11
 ---
 
 # 深度优先搜索
 
+深度优先搜索属于图算法的一种（Depth-First Search，DFS），相对于 **层（水平）** 的概念，更偏向于 **垂直** 的概念，其过程简要来说是对每一个可能的分支路径深入到不能再深入为止，而且每个节点只能访问一次。
+
 ## 代码实现
+
+1. Initialize HashSet to record visited nodees
+2. For all entry nodes, call dfs()
+   1. Validate current node, if visited or invalid or answer node, return
+   2. Do something(Pre-order)
+   3. For each neighbor node
+      1. Vlidate neighbor node, if visited or invalid or answer node, dont't recurse on it or return answer
+      2. Recurse down on neighbor node -> dfs(neighbor)
+   4. Do something(Post-order)
+
+DFS traverse graph 一般不允许访问同一节点非常数次，所以时间复杂度 $O(N*K), k = max(time(b), time(d))$
 
 ### 利用递归实现
 
@@ -42,3 +55,46 @@ function dfs(node, nodeList) {
 const res = dfs(root, (nodeList = []));
 ```
 
+模版
+
+```js
+const func = function(originData) {
+  // 存储最终结果
+  let result = [];
+  // 深度优先搜索，搜索节点
+  dfs([]);
+
+  // 必须入参为前一个节点数值，初始化值是根节点，以空字符串或者空数组为主
+  // 视情况而定入参：如增加筛选条件的下标
+  function dfs(current) {
+    // 如果结果是所有节点，则直接将 target 加入到结果中
+    // 注意 1：如果是对象，最好重新构造一个，避免对存储结果中的数据造成影响，可以在加入时重建，也可以在传参时进行
+    // 注意 2：如果结果是叶子节点或者其他条件，结果增加筛选项目，也可以在回调前增加筛选项目
+    // 注意 3：可能存在结果需要转化的，特别是整体记过转化的放在这里，单个转化的建议放在传参部分
+    result.push(new Array(current));
+
+    for (let i = 0; i < originData.length; i++) {
+      // 注意 3：这里可能需要进行数据转化，单个转化建议放在此处，如果是全部转化
+      // 注意 4：这里传给 DFS 的所有结果都要回溯，因为 originData[i + 1] 也是在 current 基础上进行的，包括与 current 相关的结果已经把当前节点加进去的也要回溯
+      current.push(originData[i]);
+      dfs(current);
+      current.pop();
+
+      // 避免回溯的简单写法如下
+      dfs([...current, originData[i]]);
+    }
+
+    return result;
+  }
+};
+```
+
+## 分析步骤
+
+1. 解决方案：确定是否用 DFS，常见子序列、子集合、求所有解决方案用 DFS
+2. 节点：确定节点，先看看输出结果最小单位内容能不能作为节点，如果不能，找一个转换方式
+3. 扩展筛选条件：哪些节点是可以继续搜索的
+4. 节点扩展：如何从上一层节点扩展到下一层
+5. 结果分析：什么时候产出结果，停止继续搜索。分析结果是每个节点，还是每个节点路径，还是叶子节点，还有可能是部分节点、部分节点路径，如果是部分，则需要增加筛选条件
+6. 结果转化：节点可能需要转化成其他形式，成为题目所需要的结果，可以在结果阶段统一转换，也可以在加入结果时一步步进行转化
+7. 套代码模版

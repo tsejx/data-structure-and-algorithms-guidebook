@@ -4,7 +4,7 @@ nav:
   order: 2
 group:
   title: 算法技巧总结
-  order: 100
+  order: 30
 title: 链表解题技巧
 order: 3
 ---
@@ -215,7 +215,6 @@ return dummyHead.next;
 
 位运算
 https://tding.top/archives/fa228c3f.html
-
 
 SQL
 https://tding.top/archives/32d634f4.html

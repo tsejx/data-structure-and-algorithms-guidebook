@@ -4,7 +4,7 @@ nav:
   order: 1
 group:
   title: 数组
-  order: 1
+  order: 3
 title: 数组
 order: 1
 ---
@@ -151,7 +151,6 @@ export default () => <img alt="数组操作6" src={img} width="50%" height="50%"
 ```
 
 同样地，数组的长度为 `5`，最坏情况下，我们删除第一个元素，后面的 `4` 个元素需要向前移动，加上删除操作，共需执行 `5` 步，因此时间复杂度为 `O(N)`，`N` 为数组的长度。
-
 
 ---
 

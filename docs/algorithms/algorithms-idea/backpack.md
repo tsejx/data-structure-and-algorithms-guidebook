@@ -1,3 +1,14 @@
+---
+nav:
+  title: 算法
+  order: 2
+group:
+  title: 算法思想
+  order: 5
+title: 动态规划 - 背包问题
+order: 10
+---
+
 # 背包问题
 
 1. 01 背包问题

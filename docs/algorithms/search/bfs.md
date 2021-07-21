@@ -5,8 +5,8 @@ nav:
 group:
   title: 搜索
   order: 3
-title: 广度优先搜索
-order: 3
+title: 树图 - 广度优先搜索
+order: 10
 ---
 
 # 广度优先搜索

@@ -4,7 +4,7 @@ nav:
   order: 2
 group:
   title: 算法技巧总结
-  order: 100
+  order: 30
 title: 二叉树解题技巧
 order: 10
 ---

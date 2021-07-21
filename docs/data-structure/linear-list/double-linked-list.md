@@ -3,8 +3,8 @@ nav:
   title: 数据结构
   order: 1
 group:
-  title: 线性表
-  order: 2
+  title: 链表
+  order:  4
 title: 双链表
 order: 3
 ---

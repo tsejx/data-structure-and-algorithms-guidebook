@@ -6,7 +6,7 @@ group:
   title: 字符串
   order: 2
 title: 剑指 58 - 左旋转字符串
-order: 5058
+order: 8058
 ---
 
 # 左旋转字符串

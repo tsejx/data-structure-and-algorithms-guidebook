@@ -3,13 +3,13 @@ nav:
   title: 数据结构
   order: 1
 group:
-  title: 图形
+  title: 图
   order: 10
-title: 图
+title: 有向图
 order: 1
 ---
 
-# 图
+# 有向图
 
 领接表/领接矩阵
 
