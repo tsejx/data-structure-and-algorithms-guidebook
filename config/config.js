@@ -6,8 +6,8 @@ const config = {
   publicPath: '/data-structure-and-algorithms-guidebook/',
   favicon: './favicon.ico',
   logo: 'http://img.mrsingsing.com/data-structure-and-algorithms-favicon.svg',
+  hash: true,
   exportStatic: {},
-  dynamicImport: {},
   navs: [
     null,
     {
