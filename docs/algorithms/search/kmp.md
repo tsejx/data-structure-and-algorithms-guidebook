@@ -162,7 +162,6 @@ function kmpMatching(str, pattern) {
 
 - [知乎：如何更好地理解 KMP 算法](https://www.zhihu.com/question/21923021)
 - [字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
-- [字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
 - [字符串匹配问题 - KMP 算法](https://juejin.im/post/6844904134861127688)
 - [帮你把 KMP 算法学个通透（B 站理论篇）](https://www.bilibili.com/video/BV1PD4y1o7nd/)
 - [帮你把 KMP 算法学个通透（求 next 数组代码篇）](https://www.bilibili.com/video/BV1M5411j7Xx)
