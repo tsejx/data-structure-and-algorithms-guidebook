@@ -16,10 +16,7 @@ order: 2
 ```js
 const str = 'helloworld';
 
-const res = str
-  .split('')
-  .reverse()
-  .join('');
+const res = str.split('').reverse().join('');
 
 console.log(res);
 ```
@@ -31,10 +28,7 @@ console.log(res);
 ```js
 function isPalindrome(str) {
   // 先反转字符串
-  const reversedStr = str
-    .split('')
-    .reverse()
-    .join('');
+  const reversedStr = str.split('').reverse().join('');
   // 判断反转前后是否相等
   return reversedStr === str;
 }
@@ -52,6 +46,24 @@ function isPalindrome(str) {
       return false;
     }
   }
+  return true;
+}
+```
+
+也可以通过双指针方法判断是否为回文字符串：
+
+```js
+function isPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  while (left < right) {
+    if (str[left] !== str[right]) return false;
+
+    left++;
+    right--;
+  }
+
   return true;
 }
 ```
@@ -75,7 +87,7 @@ function isPalindrome(str) {
 
 - 字符串 0-9：48 至 57
 - 大写字母 A-Z：65 至 90
-- 小写字母 a-z：97 至 123
+- 小写字母 a-z：97 至 122
 - 相同的大小写字母之间相差 `32`
 
 常用方法：
