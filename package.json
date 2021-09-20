@@ -30,6 +30,6 @@
     "dumi": "^1.1.23",
     "lint-md": "^0.2.0",
     "prism-react-renderer": "^1.1.1",
-    "prismjs": "^1.21.0"
+    "prismjs": "^1.25.0"
   }
 }
