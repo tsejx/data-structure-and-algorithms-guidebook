@@ -55,7 +55,7 @@ export default () => <img alt="希尔排序" src={img} width="80%" height="80%" 
 ## 算法实现
 
 ```js
-const shellSort = function(arr) {
+const shellSort = function (arr) {
   let len = arr.length,
     temp,
     gap = 1;
@@ -82,8 +82,6 @@ const shellSort = function(arr) {
 };
 ```
 
----
-
-**参考资料：**
+## 参考资料
 
 - [五分钟学会一个高难度算法：希尔排序](https://juejin.im/post/5bf9f2285188256b0f5832a0)

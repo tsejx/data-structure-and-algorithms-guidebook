@@ -51,7 +51,7 @@ export default () => <img alt="二分查找法" src={img} width="45%" height="45
 ### 遍历实现
 
 ```js
-const binarySearch = function(arr, target) {
+const binarySearch = function (arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
@@ -59,6 +59,7 @@ const binarySearch = function(arr, target) {
     end = arr.length - 1;
 
   while (start <= end) {
+    // （小索引+大索引）除以2，向下取整找到中间值
     mid = Math.floor((start + end) / 2);
 
     if (arr[mid] === target) {
@@ -82,7 +83,7 @@ const binarySearch = function(arr, target) {
 ### 递归实现
 
 ```js
-const binarySearch = function(arr, target, start, end) {
+const binarySearch = function (arr, target, start, end) {
   start = start || 0;
   end = end || arr.length - 1;
 
@@ -140,7 +141,7 @@ const binarySearch = function(arr, target, start, end) {
 ### 查找第一个值等于给定值的元素
 
 ```js
-const binarySearch = function(arr, target) {
+const binarySearch = function (arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
@@ -178,7 +179,7 @@ const binarySearch = function(arr, target) {
 ### 查找最后一个值等于给定值的元素
 
 ```js
-const binarySearch = function(arr, target) {
+const binarySearch = function (arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
@@ -214,7 +215,7 @@ const binarySearch = function(arr, target) {
 这类变形问题与前面两种变形问题的实现思路类似，代码写起来甚至更简洁。
 
 ```js
-const binarySearch = function(arr, target) {
+const binarySearch = function (arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,
@@ -250,7 +251,7 @@ const binarySearch = function(arr, target) {
 这个变形问题与前面的一种情况的实现思路是一样的。
 
 ```js
-const binarySearch = function(arr, target) {
+const binarySearch = function (arr, target) {
   if (arr.length === 0) return -1;
 
   let mid,

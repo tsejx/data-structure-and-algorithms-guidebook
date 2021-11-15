@@ -22,7 +22,7 @@ export default () => <img alt="简单的单链表" src={img} width={360} />;
 
 蓝色箭头显示单个链接列表中的结点是如何组合在一起的。
 
-## 结点结构
+## 结构定义
 
 以下是单链表中结点的典型定义：
 
@@ -113,8 +113,6 @@ export default () => <img alt="添加操作示例2" src={img} width={360} />;
 例如，让我们在列表的开头添加一个新结点 9。
 
 1. 我们初始化一个新结点 9 并将其链接到当前头结点 23。
-
-.png
 
 ```jsx | inline
 import React from 'react';

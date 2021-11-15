@@ -11,13 +11,13 @@ order: 7
 
 # 快速排序
 
-**快速排序**（Quick Sort）使用分治法（Divide and conquer）策略来把一个串行（list）分为两个子串行（sub-lists）。
+**快速排序**（Quick Sort）使用<strong style="color:red">分治</strong>（Divide and Conquer）和<strong style="color:red">递归</strong>（Recursion）的思想来把一个串行（List）分为两个子串行（Sub-Lists）。
 
 快速排序又是一种分而治之思想在排序算法上的典型应用。本质上来看，快速排序应该算是在冒泡排序基础上的 **递归分治法**。
 
 ## 算法思路
 
-1. **挑选基准值**：从数列中挑出一个元素，称为 `基准`（pivot）
+1. **选择基准值**：从数列中挑出一个元素，称为 `基准`（Pivot）（有不同的选择方法）
 2. **分割**：重新排序数列，所有元素比基准值小的摆放在基准前面，所有比基准大的元素摆在基准的后面（相同的数可以到任意一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作
 3. **递归排序子序列**：递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序
 
@@ -73,7 +73,7 @@ function quickSort(arr, left, right) {
 ### 双路快速排序法
 
 ```js
-const quickSort = function(arr) {
+const quickSort = function (arr) {
   // 检查数组的元素个数
   if (arr.length <= 1) {
     return arr;
@@ -101,26 +101,76 @@ const quickSort = function(arr) {
 简化版：
 
 ```js
-const quickSort = function(arr) {
+const quickSort = function (arr) {
   return arr.length <= 1
     ? arr
-    : quickSort(arr.slice(1).filter(item => item <= arr[0])).concat(
+    : quickSort(arr.slice(1).filter((item) => item <= arr[0])).concat(
         arr[0],
-        quickSort(arr.slice(1).filter(item => item > arr[0]))
+        quickSort(arr.slice(1).filter((item) => item > arr[0]))
       );
 };
 ```
 
 ### 三路快速排序法
 
-三路快速排序是快速排序的的一个优化版本， 将数组分成三段， 即小于基准元素、 等于 基准元素和大于基准元素， 这样可以比较高效的处理数组中存在相同元素的情况,其它特征与快速排序基本相同。
+三路快速排序是快速排序的的一个优化版本， 将数组分成三段， 即小于基准元素、 等于基准元素和大于基准元素， 这样可以比较高效的处理数组中存在相同元素的情况,其它特征与快速排序基本相同。
 
-- 随机选取基准值 `pivot`（支点随机选取）
-- 配合着使用插入排序(当问题规模较小时，近乎有序时，插入排序表现的很好)
-- 当大量数据，且重复数多时，用三路快排
+实现思路：
 
----
+1. 通过设定（首个）基准值（Pivot）进行左右分区（分治），基准值左边都比基准值小，右边都比基准值大
+2. 通过控制分区开始的左右边界，递归重复进行分区排列的逻辑，所以外层函数中需要执行两个递归操作
 
-**参考资料：**
+<br />
+
+```js
+function partition(arr, l, r) {
+  // 基准值为数组的零号元素
+  let pivot = arr[l];
+  // 左区间的初始值
+  let lt = l;
+  // 右区间的初始值
+  let gt = r + 1;
+
+  for (let i = l + 1; i < gt; ) {
+    if (arr[i] === pivot) {
+      // 当前 i 指向的元素等于 pivot
+      i++;
+    } else if (arr[i] > pivot) {
+      // 当前 i 指向的元素大于 pivot，将 gt-1 处的元素与当前索引处的元素交换位置
+      [arr[gt - 1], arr[i]] = [arr[i], arr[gt - 1]];
+      gt--;
+    } else {
+      // 当前 i 指向的元素小于 pivot，将 lt+1 处的元素与当前索引处的元素交换位置
+      [arr[lt + 1], arr[i]] = [arr[i], arr[lt + 1]];
+      lt++;
+      i++;
+    }
+  }
+
+  // i 走向 gt 处，除了基准值外的元素，其余的空间已经分区完毕，交换基准值与 lt 处的元素，最终得到我们需要的三个区间
+  [arr[l], arr[lt]] = [arr[lt], arr[l]];
+  lt--;
+
+  return { lt, gt };
+}
+
+function quickSort(arr, l, r) {
+  l = typeof l === 'number' ? l : 0;
+  r = typeof r === 'number' ? r : arr.length - 1;
+
+  // 当前数组的起始位置大于等于数组的末尾时退出递归
+  if (l >= r) return;
+
+  const { lt, gt } = partition(arr, l, r);
+
+  // 递归执行：将没有大于 pivot，和小于 pivot 区间的元素再进行三路快排
+  quickSort(arr, l, lt);
+  quickSort(arr, gt, r);
+
+  return arr;
+}
+```
+
+## 参考资料
 
 - [图解快速排序及双路三路快速排序](https://segmentfault.com/a/1190000021726667)

@@ -6,12 +6,14 @@ group:
   title: 算法技巧总结
   order: 30
 title: 字符串解题技巧
-order: 2
+order: 4
 ---
 
 # 字符串解题技巧
 
-## 字符串反转
+## 字符串操作
+
+### 反转字符串
 
 ```js
 const str = 'helloworld';
@@ -21,7 +23,9 @@ const res = str.split('').reverse().join('');
 console.log(res);
 ```
 
-## 回文字符串
+## 字符串类型
+
+### 回文字符串
 
 所谓的回文字符串，就是正着读和反着读是一样的。
 
@@ -81,7 +85,17 @@ function isPalindrome(str) {
 
 字符串题干中出现 **回文** 关键字，那么首先想到的必须是：`对称性` 和 `双指针`。
 
-## Unicode 编码
+### 换位词
+
+## 字符串方法
+
+### substr
+
+### substring
+
+### padStart
+
+## 字符方法
 
 常用编码：
 
@@ -200,3 +214,8 @@ const n = Math.floor(Math.log10(x));
 // 对应个十百千的转化
 const n = 10 ** Math.floor(Math.log10(x));
 ```
+
+## 字符串比较方法
+
+- 先后
+- 是否存在重复的字符

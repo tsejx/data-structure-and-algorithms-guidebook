@@ -36,7 +36,7 @@ order: 234
 需要注意在链表节点数为奇数时，也就是当遍历结束后 `fast != null` 的情况，要将 `slow` 结点跳过中间结点，否则两条半链表不一样长。
 
 ```js
-var isPalindrome = function(head) {
+var isPalindrome = function (head) {
   if (!head || !head.next) return true;
 
   if (head.next.next === null) {
@@ -47,7 +47,7 @@ var isPalindrome = function(head) {
   let fast = head;
   let slow = head;
 
-  // 用户辅助翻转前半条链表
+  // 用于辅助翻转前半条链表
   let prev = null;
 
   while (fast && fast.next) {

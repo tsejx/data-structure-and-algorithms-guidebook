@@ -6,7 +6,7 @@ group:
   title: 算法技巧总结
   order: 30
 title: 数组解题技巧
-order: 1
+order: 3
 ---
 
 # 数组解题技巧
@@ -14,7 +14,6 @@ order: 1
 ## 初始定义
 
 ## 基础算法思想
-
 
 ## 哈希映射
 
@@ -30,7 +29,6 @@ order: 1
 
 大家记住一个结论：几乎所有的求和问题，都可以转化为 `求差问题`。[两数之和](../../leetcode/array/1-two-sum) 就是一个典型的例子，通过把求和问题转化为求差问题，事情会变得更加简单。
 
-
 ## 双索引技巧
 
 定义两个指针，确定指针的开头和结尾。
@@ -43,7 +41,6 @@ order: 1
 
 > 口诀：左右指针中间夹，快慢指针走到头，后序指针往回走
 
-
 ### 快慢指针
 
 快慢指针一般都初始化指向链表的头结点 `head`，前进时快指针 `fast` 在前，慢指针 `slow` 在后，巧妙解决一些链表中的问题。
@@ -53,15 +50,15 @@ order: 1
 伪代码：
 
 ```js
-const fn = function(head) {
+const fn = function (head) {
   if (head === null || head.next === null) return false;
 
   let slow = head;
   let fast = head.next;
 
-  while(slow !== fast) {
+  while (slow !== fast) {
     if (fast === null || fast.next === null) {
-      return false
+      return false;
     }
 
     slow = slow.next;
@@ -69,7 +66,7 @@ const fn = function(head) {
   }
 
   return true;
-}
+};
 ```
 
 常见问题：
@@ -78,7 +75,7 @@ const fn = function(head) {
 2. **判断链表是否有环**：如果链表中存在环，则在链表上不断前进的指针会一直在环里绕圈子，且不能知道链表是否有环。使用快慢指针，当链表中存在环时，两个指针最终会在环中相遇。
 3. **判断链表中环的起点**：当我们判断出链表中存在环，并且知道了两个指针相遇的节点，我们可以让其中任一个指针指向头节点，然后让它俩以相同速度前进，再次相遇时所在的节点位置就是环开始的位置。
 4. **求链表中环的长度**：只要相遇后一个不动，另一个前进直到相遇算一下走了多少步就好了
-5. **求链表倒数第k个元素**：先让其中一个指针向前走k步，接着两个指针以同样的速度一起向前进，直到前面的指针走到尽头了，则后面的指针即为倒数第k个元素。（严格来说应该叫先后指针而非快慢指针）
+5. **求链表倒数第 k 个元素**：先让其中一个指针向前走 k 步，接着两个指针以同样的速度一起向前进，直到前面的指针走到尽头了，则后面的指针即为倒数第 k 个元素。（严格来说应该叫先后指针而非快慢指针）
 
 ### 对撞指针
 
@@ -91,19 +88,20 @@ const fn = function(head) {
 伪代码：
 
 ```js
-const fn = function(nums) {
-  let left = 0, right = nums.length - 1;
+const fn = function (nums) {
+  let left = 0,
+    right = nums.length - 1;
 
-  while(left <= right) {
+  while (left <= right) {
     if (条件判断) {
       // do something
-      left ++;
+      left++;
     } else {
       // do something
       right--;
     }
   }
-}
+};
 ```
 
 相关题型：
@@ -135,10 +133,20 @@ const fn = function(nums) {
 
 1. 只要题干或者题目描述中出现 `有序` 和 `数组`，应该先思考使用双指针解决，普通指针走不通则应该立即想到对撞指针
 
----
+## 数组方法
 
-**参考资料：**
+### sort
+
+排序
+
+## 常用代码
+
+```js
+// 生成指定长度的数组并填充
+const res = new Array(n).fill(0);
+```
+
+## 参考资料
 
 - [LeetCode 题目总结 - 数组中的双指针问题](https://tding.top/archives/647f3958.html)
 - [常用的双指针技巧](https://leetcode-cn.com/circle/article/GMopsy/)
-

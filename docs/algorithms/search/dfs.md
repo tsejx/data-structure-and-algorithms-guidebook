@@ -11,20 +11,11 @@ order: 11
 
 # 深度优先搜索
 
-深度优先搜索属于图算法的一种（Depth-First Search，DFS），相对于 **层（水平）** 的概念，更偏向于 **垂直** 的概念，其过程简要来说是对每一个可能的分支路径深入到不能再深入为止，而且每个节点只能访问一次。
+深度优先搜索属于图算法的一种（Depth First Search，DFS），相对于 **层（水平）** 的概念，更偏向于 **垂直** 的概念，其过程简要来说是对每一个可能的分支路径深入到不能再深入为止，而且每个节点只能访问一次。
 
 ## 代码实现
 
-1. Initialize HashSet to record visited nodees
-2. For all entry nodes, call dfs()
-   1. Validate current node, if visited or invalid or answer node, return
-   2. Do something(Pre-order)
-   3. For each neighbor node
-      1. Vlidate neighbor node, if visited or invalid or answer node, dont't recurse on it or return answer
-      2. Recurse down on neighbor node -> dfs(neighbor)
-   4. Do something(Post-order)
-
-DFS traverse graph 一般不允许访问同一节点非常数次，所以时间复杂度 $O(N*K), k = max(time(b), time(d))$
+DFS 时间复杂度 $O(N*K), k = max(time(b), time(d))$
 
 ### 利用递归实现
 
@@ -36,29 +27,32 @@ DFS traverse graph 一般不允许访问同一节点非常数次，所以时间�
 4. 递归
 
 ```js
-let nodeList = [];
-
-function dfs(node, nodeList) {
-  if (node) {
-    nodeList.push(node);
-
-    const children = node.children;
-
-    for (let i = 0; i < children.length; i++) {
-      bfs(children[i], nodeList);
+let dfs = (node) => {
+  // 定义空数组，用于存储节点
+  let nodes = [];
+  // 当节点不为空时
+  if (node !== null) {
+    // 将当前节点push进数组中
+    nodes.push(node);
+    // 取出当前节点的孩子节点
+    let children = node.children;
+    // 循环所有的孩子节点
+    if (children) {
+      for (let i = 0; i < children.length; i++) {
+        // 递归调用并将结果进行拼接
+        nodes = nodes.concat(dfs(children[i]));
+      }
     }
   }
-
-  return nodeList;
-}
-
-const res = dfs(root, (nodeList = []));
+  // 返回结果
+  return nodes;
+};
 ```
 
 模版
 
 ```js
-const func = function(originData) {
+const func = function (originData) {
   // 存储最终结果
   let result = [];
   // 深度优先搜索，搜索节点
@@ -86,6 +80,38 @@ const func = function(originData) {
 
     return result;
   }
+};
+```
+
+### 利用栈实现
+
+```js
+let deepTraversal = function (node) {
+  // 定义保存结果数组nodes，以及辅助数组stack（栈）
+  let stack = [];
+  let nodes = [];
+  if (node) {
+    // 推入当前处理的node
+    stack.push(node);
+    while (stack.length) {
+      // 将最后一个弹出
+      let item = stack.pop();
+      // 取出他的孩子节点
+      let children = item.children;
+      // 将这个节点push进结果数组
+      nodes.push(item);
+      // 将孩子节点倒过来push进辅助栈中。例如当前节点有两个孩子，children1和children2
+      // 那么stack里面为[children2,children1],这样pop()的时候children1会先弹出，
+      // 进而children1会先被push进nodes，先遍历children1的孩子节点（以此类推）
+      if (children) {
+        for (let i = children.length - 1; i >= 0; i--) {
+          stack.push(children[i]);
+        }
+      }
+    }
+  }
+  // 返回结果数组
+  return nodes;
 };
 ```
 

@@ -77,8 +77,6 @@ function heapify(arr, index, len) {
 }
 ```
 
----
-
-**参考资料：**
+## 参考资料
 
 - [图解排序算法（三）之堆排序](https://www.cnblogs.com/chengxiao/p/6129630.html)

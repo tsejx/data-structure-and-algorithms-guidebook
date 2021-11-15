@@ -3,7 +3,7 @@ nav:
   title: 前端编程
   order: 4
 group:
-  title: 实用工具
+  title: 代码实现题
   order: 3
 title: 数组方法
 order: 1
@@ -14,7 +14,7 @@ order: 1
 ## 扁平化
 
 ```js
-const flat = function(arr) {
+const flat = function (arr) {
   return arr.reduce((acc, item) => {
     return acc.concat(Array.isArray(item) ? flat(item) : item);
   }, []);
@@ -26,7 +26,7 @@ const flat = function(arr) {
 数组最后一项元素替换掉当前项元素，并删除最后一项元素。
 
 ```js
-const dedupe = function(arr) {
+const dedupe = function (arr) {
   for (let i = 0; i < arr.length - 1; i++) {
     // 取得当前数组中的每一项
     let item = arr[i];
@@ -45,7 +45,7 @@ const dedupe = function(arr) {
 对象键值对存储
 
 ```js
-const dedupe = function(arr) {
+const dedupe = function (arr) {
   let obj = {};
 
   for (let i = 0; i < arr.length; i++) {

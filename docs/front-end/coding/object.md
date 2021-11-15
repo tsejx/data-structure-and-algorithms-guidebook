@@ -1,20 +1,33 @@
----
-nav:
-  title: 前端编程
-  order: 4
-group:
-  title: 原生编程
-  order: 2
-title: 对象 API
-order: 7
----
+# 对象
 
-# 对象 API
+## 扁平化
+
+```js
+const objectFlat = (obj) => {
+  const res = {};
+
+  function flat(item, preKey = '') {
+    Object.entries(item).forEach(([key, val]) => {
+      const newKey = preKey ? `${preKey}.${key}` : key;
+
+      if (val && Object.prototype.toString.call(val) === '[object Object]') {
+        flat(val, newKey);
+      } else {
+        res[newKey] = val;
+      }
+    });
+  }
+
+  flat(obj);
+
+  return res;
+};
+```
 
 ## Object.create
 
 ```js
-Object.create = function(proto) {
+Object.create = function (proto) {
   if (typeof proto !== 'object' && typeof proto !== 'function') {
     throw new TypeError('Object prototype may only be an Object:' + proto);
   } else if (proto === null) {
@@ -204,7 +217,7 @@ function deepClone(origin, hashMap = new WeakMap()) {
 
   // 拷贝 Set
   if (type === tags.set) {
-    origin.forEach(value => {
+    origin.forEach((value) => {
       target.add(deepClone(value, hashMap));
     });
   }
@@ -225,7 +238,7 @@ function deepClone(origin, hashMap = new WeakMap()) {
 
   // 拷贝对象
   if (type === tags.object) {
-    Object.keys(origin).forEach(key => {
+    Object.keys(origin).forEach((key) => {
       target[key] = deepClone(origin[key], hashMap);
     });
   }

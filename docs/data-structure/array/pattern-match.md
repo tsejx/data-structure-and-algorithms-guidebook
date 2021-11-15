@@ -6,7 +6,7 @@ group:
   title: 数组
   order: 3
 title: 模式匹配
-order: 5
+order: 10
 ---
 
 # 模式匹配

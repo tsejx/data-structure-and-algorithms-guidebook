@@ -6,7 +6,7 @@ group:
   title: 数组
   order: 3
 title: 多模式匹配
-order: 6
+order: 11
 ---
 
 # 多模式匹配

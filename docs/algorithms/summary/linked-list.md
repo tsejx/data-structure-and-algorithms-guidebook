@@ -6,7 +6,7 @@ group:
   title: 算法技巧总结
   order: 30
 title: 链表解题技巧
-order: 3
+order: 5
 ---
 
 # 链表解题技巧
@@ -15,35 +15,33 @@ order: 3
 
 - 对于涉及链表长度的问题，往往会通过两个指针进行几何变换来得到想要的差额==要好好画图理解思考
 - 使用一些临时变量来存储 `next` 指针，以完成插入删除等操作
-- 对于插入和删除等操作，往往需要一个额外的指针来记录其前面的节点，再编程之前好好思考其间关系效果会比较好
-- 对一些依赖于后面节点才可以完成的操作，使用递归的方式来解决
+- 对于插入和删除等操作，往往需要一个额外的指针来记录其前面的结点，再编程之前好好思考其间关系效果会比较好
+- 对一些依赖于后面结点才可以完成的操作，使用递归的方式来解决
 - 对于有些题目提前使用循环获得其链表的长度也是一种有效的方法
-- 对于要考虑最后几个节点的操作，有事可以再遍历之前先将头指针向后移动 k 个节点（双指针？）
-- 插入、删除操作往往需要使用目标节点前面的节点，所以往往会定义一个新的链表节点其 next 指针指向 head 节点
+- 对于要考虑最后几个结点的操作，有事可以再遍历之前先将头指针向后移动 k 个结点（双指针？）
+- 插入、删除操作往往需要使用目标结点前面的结点，所以往往会定义一个新的链表结点其 next 指针指向 head 结点
 
-## 哑结点
+## 哨兵结点(哑结点)
 
-Leetcode 里面传进来的 `head` 是带有数据的，这个没有任何结点指向 `head`，因此对 `head` 的修改有时会比较麻烦，因此可以先建立一个假象结点指向 `head`，以后需要返回 `head` 时，直接 `dummy -> next` 即可。
+哨兵（Sentinel）是个哑元结点（Dummy Node）。哑结点指数据域为空，指针域指向链表头结点的结点，它是为了简化边界条件而引入的。如果一个链表有哨兵结点的话，那么线性表的第一个元素应该是链表的第二个结点。
 
-要对头结点进行操作时，考虑创建哑结点 dummy，使用 `dummy->next` 表示真正的头结点。这样可以避免处理头结点为空的边界问题（例如：NULL 或单结点问题）。
+要对头结点进行操作时，考虑创建哨兵结点 `dummy`，使用 `dummy.next` 表示真正的头结点。这样可以避免处理头结点为空的边界问题（例如：`null` 或单结点问题）。
 
-## 循环遍历
+缓存头结点：
 
-```java
-// 链表的遍历通常设定一个指针指向头部，然后遍历直至指针指的结点部位 NULL
-ListNode cur = head;
+```js
+var reorderList = function (head) {
+  let dummy = new ListNode(-1);
+  dummy.next = head;
 
-while (cur != null) {
-    // ...
-    cur = cur.next;
-}
+  // ...
+
+  // 指向头结点
+  console.log(dummy.next);
+};
 ```
 
-## 哨兵结点
-
-利用哨兵简化实现难度
-
-## 双指针法
+## 双指针
 
 链表相关的题目一般都需要用到两个指针：`prev` 指针和 `curr` 指针
 
@@ -73,9 +71,9 @@ return false; // Change return value to fit specific problem
 
 它与我们在数组中学到的内容类似。但它可能更棘手而且更容易出错。你应该注意以下几点：
 
-1. 在调用 next 字段之前，始终检查节点是否为空
+1. 在调用 next 字段之前，始终检查结点是否为空
 
-获取空节点的下一个节点将导致空指针错误。例如，在我们运行 `fast = fast.next.next` 之前，需要检查 `fast` 和 `fast.next` 不为空
+获取空结点的下一个结点将导致空指针错误。例如，在我们运行 `fast = fast.next.next` 之前，需要检查 `fast` 和 `fast.next` 不为空
 
 2. 仔细定义循环的结束条件
 
@@ -92,25 +90,124 @@ return false; // Change return value to fit specific problem
 
 自己分析其他问题以提高分析能力。别忘了考虑不同的条件。如果很难对所有情况进行分析，请考虑最糟糕的情况。
 
-## 翻转链表/链表的逆转
+### 快慢指针
 
-1. 构建两个指针，一个指向翻转后结点要指向的结点，另一个遍历原链表
+快慢指针，就是定义两个指针，一个指针（慢指针）的移动速度为 v，另一个指针（快指针）速度为 2v，如此一来，经过相同的时间，快指针走过的路程是慢指针的两倍。因为链表无法得知长度，所以尝试用这种方法来达到某种效果（长度、检测环等）。
+
+- 如果链表结点个数是奇数，slow 最后位置就是中点
+- 如果链表结点个数是偶数，slow 最后位置就是中间两个结点中较小的那个
+
+所以如果拆分链表，记得 `slow.next = null`
+
+用于检测链表是否存在环
 
 ```js
-let pre = null,
-  cur = head;
+let slow = head,
+  fast = head;
 
-while (cur != null) {
-  let next = cur.next;
-  cur.next = pre;
-  pre = cur;
-  cur = next;
+while (fast.next != null && fast.next.next != null) {
+  slow = slow.next;
+  fast = fast.next.next;
 }
 ```
 
-2. 在指定位置翻转链表
+## 链表搜索
 
-**遍历头插法**
+### 寻找链表中间结点
+
+快指针每次移动两步，而慢指针每次移动一步。
+
+```js
+var findMidNode = function (head) {
+  let fast = head,
+    slow = head;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // 偶数 <-> 奇数
+  const slow;
+};
+```
+
+### 寻找链表倒数第 K 个结点
+
+快指针首先移动 K 步，随后与慢指针一起到达末尾。
+
+```js
+var getKthFromEnd = function (head, k) {
+  let slow = head,
+    fast = head;
+
+  for (let i = 1; i < k; i++) {
+    if (fast.next) {
+      fast = fast.next;
+      continue;
+    }
+
+    return null;
+  }
+
+  while (fast != null) {
+    fast = fast.next;
+    slow = slow.next;
+  }
+
+  return slow;
+};
+```
+
+### 循环遍历
+
+```java
+// 链表的遍历通常设定一个指针指向头部，然后遍历直至指针指的结点部位 NULL
+ListNode cur = head;
+
+while (cur != null) {
+    // ...
+    cur = cur.next;
+}
+```
+
+## 链表操作
+
+- 反转链表
+- 重排链表
+- 拷贝链表
+- 合并链表
+- 拆分链表
+- 旋转
+
+### 反转链表
+
+构建两个指针，一个指向翻转后结点要指向的结点，另一个遍历原链表
+
+```js
+var reverseList = function (head) {
+  // 上一个结点和下一个结点
+  let prev = null,
+    cur = head;
+
+  while (cur) {
+    const next = cur.next;
+    cur.next = pre;
+    pre = cur;
+    cur = next;
+  }
+  return prev;
+};
+```
+
+复杂度分析：
+
+- 时间复杂度：$O(n)$，其中 $n$ 是链表的长度。需要遍历链表一次。
+- 空间复杂度：$O(1)$
+
+扩展：
+
+#### 遍历头插法
 
 如果只知道待翻转结点的前驱结点
 
@@ -128,7 +225,7 @@ while (cur != null && i < n) {
 }
 ```
 
-**删除尾插法**
+#### 删除尾插法
 
 如果直到待翻转的第一个结点的前驱结点和尾结点
 
@@ -148,7 +245,7 @@ if (i == k) {
 }
 ```
 
-采用递归一把梭穿到最后找到逆转后的头节点，然后从后往前挨个儿逆转，即后继结点指向前驱结点，前驱结点接着 NULL，顺序往前，直到完成整个逆转过程。
+采用递归一把梭穿到最后找到逆转后的头结点，然后从后往前挨个儿逆转，即后继结点指向前驱结点，前驱结点接着 NULL，顺序往前，直到完成整个逆转过程。
 
 ```js
 function reverseList(head) {
@@ -160,61 +257,108 @@ function reverseList(head) {
 }
 ```
 
-头插法/
+### 重排链表
 
-## 前后指针/快慢指针定中点
+### 拷贝链表
 
-快慢指针，就是定义两个指针，一个指针（慢指针）的移动速度为 v，另一个指针（快指针）速度为 2v，如此一来，经过相同的时间，快指针走过的路程是慢指针的两倍。
-
-因为链表无法得知长度，所以尝试用这种方法来达到某种效果（长度，检测环等）。
-
-如果链表结点个数是奇数，slow 最后位置就是中点
-如果链表结点个数是偶数，slow 最后位置就是中间两个结点中较小的那个
-
-所以如果拆分链表，记得 `slow.next = null`
-
-用于检测链表是否存在环
+先合并再拆分
 
 ```js
-let slow = head,
-  fast = head;
-
-while (fast.next != null && fast.next.next != null) {
-  slow = slow.next;
-  fast = fast.next.next;
-}
+var copyList = function (head) {
+  let cur = head;
+  while (cur) {
+    cur.next = new Node(cur.val, cur.next);
+    cur = cur.next;
+  }
+  cur = head.next;
+  let pre = head,
+    res = head.next;
+  while (cur.next && pre.next) {
+    pre.next = pre.next.next;
+    cur.next = next.next.next;
+    pre = pre.next;
+    cur = cur.next;
+  }
+  pre.next = null;
+  return res;
+};
 ```
 
-## 删除结点操作
+### 合并链表
+
+### 分割链表
+
+#### 分割奇数节点链表
+
+```js
+var divideOdd = function (head) {};
+```
+
+#### 分割偶数节点链表
+
+```js
+var divideEven = function (head) {};
+```
+
+### 删除链表结点
 
 构建两个指针，一个指针遍历链表，另一个指针紧跟后面进行删除操作
 
-```java
-ListNode dummyHead = new ListNode(0);
+```js
+let dummyHead = new ListNode(0);
 dummyHead.next = head;
-ListNode pre = dummyHead, cur = head;
 
-while(cur != null && cur.next != null) {
-    if (cur.val == val) {
-        pre.next = cur.next;
-    } else {
-        pre = pre.next;
-    }
+let pre = dummyHead,
+  cur = head;
 
-    cur = cur.next;
+while (cur != null && cur.next != null) {
+  if (cur.val == val) {
+    pre.next = cur.next;
+  } else {
+    pre = pre.next;
+  }
+
+  cur = cur.next;
 }
 
 return dummyHead.next;
 ```
+
+### 删除当前结点
+
+记录上一个结点
+
+```js
+let pre = slow;
+
+while (fast != null) {
+  fast = fast.next;
+  pre = slow;
+  slow = slow.next;
+}
+
+pre.next = slow.next;
+```
+
+### 删除下个结点
+
+```js
+let cur = head;
+
+while (cur.next != null) {
+  if (cur.val == cur.next.val) {
+    // 前后值相同只需要更换下一个结点位置即可
+    cur.next = cur.next.next;
+  } else {
+    cur = cur.next;
+  }
+}
+```
+
+## 参考资料
 
 - [链表的基本操作与拓展操作（Java 语言实现）](https://blog.csdn.net/why_still_confused/article/details/51333257)
 - [高效面试之 LeetCode 链表题汇总](https://blog.csdn.net/cqkxboy168/article/details/40464351)
 - [单链表类题目总结（应用双指针）](https://blog.csdn.net/KusanoNEU/article/details/72758159)
 - [LeetCode 链表习题总结](https://blog.csdn.net/zhou373986278/article/details/78223278)
 - [LeetCode 题目总结 - 链表](https://tding.top/archives/551df4d4.html)
-
-位运算
-https://tding.top/archives/fa228c3f.html
-
-SQL
-https://tding.top/archives/32d634f4.html

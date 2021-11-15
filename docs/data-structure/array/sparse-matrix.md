@@ -6,7 +6,7 @@ group:
   title: 数组
   order: 3
 title: 稀疏矩阵
-order: 20
+order: 21
 ---
 
 # 稀疏矩阵

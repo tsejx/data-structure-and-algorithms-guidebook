@@ -5,33 +5,33 @@ nav:
 group:
   title: 树
   order: 7
-title: 二叉查找树
+title: 二叉搜索树
 order: 3
 ---
 
-# 二叉查找树
+# 二叉搜索树
 
-**二叉查找树**（Binary Search Tree），也称为**二叉查找树**、**有序二叉树**（Ordered Binary Tree）或**排序二叉树**（Sorted Binary Tree），是指一棵空树或者具有下列性质的二叉树：
+**二叉搜索树**（Binary Search Tree），也称为**二叉查找树**、**有序二叉树**（Ordered Binary Tree）或**排序二叉树**（Sorted Binary Tree），是指一棵空树或者具有下列性质的二叉树：
 
 - 若任意节点的 **左子树** 不为空，则左子树上所有节点的值 <strong style="color: red">均小于</strong> 它的根节点的值
 - 若任意节点的 **右子树** 不为空，则右子树上所有节点的值 <strong style="color: red">均大于或等于</strong> 它的根节点的值
-- 任意节点的左、右子树也分别为二叉查找树
+- 任意节点的左、右子树也分别为二叉搜索树
 - 没有键值相等的节点
 
 ```jsx | inline
 import React from 'react';
 import img from '../../assets/tree/binary-search-tree.png';
 
-export default () => <img alt="二叉查找树" src={img} width="25%" />;
+export default () => <img alt="二叉搜索树" src={img} width="25%" />;
 ```
 
-> 二叉查找树不一定是完全二叉树，所以用数组并不方便，因此通常设立 TreeNode 节点表示 key-value，节点间联系通常使用指针和引用。
+> 二叉搜索树不一定是完全二叉树，所以用数组并不方便，因此通常设立 TreeNode 节点表示 key-value，节点间联系通常使用指针和引用。
 
 ## 优势
 
-二叉查找树的优点是，即便在最坏的情况下，也允许你在 `O(h)` 的时间复杂度内执行所有的搜索、插入、删除操作。
+二叉搜索树的优点是，即便在最坏的情况下，也允许你在 `O(h)` 的时间复杂度内执行所有的搜索、插入、删除操作。
 
-通常来说，如果你想有序地存储数据或者需要同时执行搜索、插入、删除等多步操作，二叉查找树这个数据结构是一个很好的选择。
+通常来说，如果你想有序地存储数据或者需要同时执行搜索、插入、删除等多步操作，二叉搜索树这个数据结构是一个很好的选择。
 
 |            | 查找元素   | 插入元素   | 删除元素   |
 | :--------- | :--------- | :--------- | :--------- |
@@ -45,7 +45,7 @@ export default () => <img alt="二叉查找树" src={img} width="25%" />;
 
 ## 实现
 
-二叉查找树主要支持三个操作：搜索、插入和删除。
+二叉搜索树主要支持三个操作：搜索、插入和删除。
 
 根据上面的知识，我们了解到二叉树实际上是由多个节点组成，因此我们首先要定义一个 TreeNode 类，用于存放树的节点，其构造与链表类似。
 
@@ -61,7 +61,7 @@ function TreeNode(value, left, right) {
 
 用户对象既保存了数据，也保存了它的左节点和右节点的引用。
 
-现在我们可以创建一个类，用来表示二叉查找树（BST），我们初始化类只包含一个成员，一个表示二叉查找树节点的 TreeNode 对象，初始化为 `null`，表示创建一个空节点。
+现在我们可以创建一个类，用来表示二叉搜索树（BST），我们初始化类只包含一个成员，一个表示二叉搜索树节点的 TreeNode 对象，初始化为 `null`，表示创建一个空节点。
 
 ```js
 function BST() {
@@ -72,7 +72,7 @@ function BST() {
 
 ### 插入操作
 
-二叉查找树中的基本操作是插入一个新节点。有许多不同的方法去插入新节点，这章节中，我们只讨论一种使整体操作变化最小的经典方法。 它的主要思想是为目标节点找出合适的叶节点位置，然后将该节点作为叶节点插入。
+二叉搜索树中的基本操作是插入一个新节点。有许多不同的方法去插入新节点，这章节中，我们只讨论一种使整体操作变化最小的经典方法。 它的主要思想是为目标节点找出合适的叶节点位置，然后将该节点作为叶节点插入。
 
 与搜索操作类似，对于每个节点，我们将：
 
@@ -80,17 +80,17 @@ function BST() {
 2. 重复步骤 1 直到到达外部节点；
 3. 根据节点的值与目标节点的值的关系，将新节点添加为其左侧或右侧的子节点。
 
-这样，我们就可以添加一个新的节点并依旧维持二叉查找树的性质。
+这样，我们就可以添加一个新的节点并依旧维持二叉搜索树的性质。
 
 ```jsx | inline
 import React from 'react';
 import img from '../../assets/tree/binary-search-tree-insert.gif';
 
-export default () => <img alt="二叉查找树-插入元素" src={img} width="40%" height="40%" />;
+export default () => <img alt="二叉搜索树-插入元素" src={img} width="40%" height="40%" />;
 ```
 
 ```js
-BST.prototype.insert = function(value) {
+BST.prototype.insert = function (value) {
   // 首先要添加新的节点，首先需要创建 TreeNode 对象，将数据传入该对象
   const newNode = new TreeNode(value, null, null);
 
@@ -140,7 +140,7 @@ BST.prototype.insert = function(value) {
 #### 中序遍历
 
 ```js
-BST.prototype.inOrder = function(node) {
+BST.prototype.inOrder = function (node) {
   if (!(node === null)) {
     this.inOrder(node.left);
     console.log(node.value + ' ');
@@ -152,7 +152,7 @@ BST.prototype.inOrder = function(node) {
 #### 先序遍历
 
 ```js
-BST.prototype.preOrder = function(node) {
+BST.prototype.preOrder = function (node) {
   if (!(node === null)) {
     console.log(node.value + ' ');
     this.preOrder(node.left);
@@ -164,7 +164,7 @@ BST.prototype.preOrder = function(node) {
 #### 后序遍历
 
 ```js
-BST.prototype.postOrder = function(node) {
+BST.prototype.postOrder = function (node) {
   if (!(node === null)) {
     this.postOrder(node.left);
     this.postOrder(node.right);
@@ -184,7 +184,7 @@ BST.prototype.postOrder = function(node) {
 在 BST 上查找给定值，需要比较给定值和当前节点保存的值大小，通过比较，就能确定给定值在不在当前节点，再根据 BST 的特点，向左或向右遍历。
 
 ```js
-BST.prototype.find = function(value) {
+BST.prototype.find = function (value) {
   let current = this.root;
 
   while (current != null) {
@@ -206,7 +206,7 @@ BST.prototype.find = function(value) {
 遍历左子树，直到左子树的某个节点的左子节点为 `null` 时，该节点保存的即为最小值。
 
 ```js
-BST.prototype.getMin = function() {
+BST.prototype.getMin = function () {
   let current = this.root;
 
   while (!(current.left === null)) {
@@ -222,7 +222,7 @@ BST.prototype.getMin = function() {
 与查找最小值类似，遍历右子树，直到右子树的某个右子节点为 `null` 时，该节点保存的即为最大值。
 
 ```js
-BST.prototype.getMax = function() {
+BST.prototype.getMax = function () {
   let current = this.root;
 
   while (!(current.right === null)) {
@@ -236,25 +236,25 @@ BST.prototype.getMax = function() {
 查找前驱节点：
 
 ```js
-BST.prototype.predecessor = function() {};
+BST.prototype.predecessor = function () {};
 ```
 
 查找后继节点：
 
 ```js
-BST.prototype.successor = function() {};
+BST.prototype.successor = function () {};
 ```
 
 查找大于等于目标值的最小值（向上取整）
 
 ```js
-BST.prototype.ceil = function(key) {};
+BST.prototype.ceil = function (key) {};
 ```
 
 查找小于等于目标值的最大值（向下取整）
 
 ```js
-BST.prototype.floor = function(key) {};
+BST.prototype.floor = function (key) {};
 ```
 
 ### 删除操作
@@ -268,11 +268,11 @@ BST.prototype.floor = function(key) {};
 3. 如果要删除的节点有两个子节点，我们需要用其中序后继节点或者前驱节点来替换，再删除该节点。
 
 ```js
-BST.prototype.remove = function(value) {
+BST.prototype.remove = function (value) {
   this.removeNode(this.root, value);
 };
 
-BST.prototype.getSmallest = function(node) {
+BST.prototype.getSmallest = function (node) {
   if (node.left === null) {
     return node;
   } else {
@@ -280,7 +280,7 @@ BST.prototype.getSmallest = function(node) {
   }
 };
 
-BST.prototype.removeNode = function(node, value) {
+BST.prototype.removeNode = function (node, value) {
   // 1. 首先判断当前节点是否包含待删除的数据值
   // 如果包含，则删除该节点
   // 如果不包含，则比较当前节点上的数据和待删除树的大小关系
@@ -335,14 +335,14 @@ BST.prototype.removeNode = function(node, value) {
 import React from 'react';
 import img from '../../assets/tree/binary-search-tree-limitations.jpeg';
 
-export default () => <img alt="二叉查找树-局限性" src={img} width="50%" />;
+export default () => <img alt="二叉搜索树-局限性" src={img} width="50%" />;
 ```
 
-这就是二叉查找树存在的问题，它可能是极端的，并不总是像左侧永远是一个平衡的二叉树，如果我顺序化插入树的形状就如右侧所示，会退化成一个链表，试想如果我需要查找节点 40，在上图所示的树形中需要遍历完所有节点，相比于左侧时间性能会消耗一倍。
+这就是二叉搜索树存在的问题，它可能是极端的，并不总是像左侧永远是一个平衡的二叉树，如果我顺序化插入树的形状就如右侧所示，会退化成一个链表，试想如果我需要查找节点 40，在上图所示的树形中需要遍历完所有节点，相比于左侧时间性能会消耗一倍。
 
-为了解决这一问题，可能需要一种平衡的二叉查找树，常用的实现方法有红黑树、AVL 树等。
+为了解决这一问题，可能需要一种平衡的二叉搜索树，常用的实现方法有红黑树、AVL 树等。
 
-## 高度平衡的二叉查找树
+## 高度平衡的二叉搜索树
 
 > 树结构中的常见用语：
 >
@@ -350,7 +350,7 @@ export default () => <img alt="二叉查找树-局限性" src={img} width="50%" 
 > - 节点的高度：该节点和叶子之间最长路径上的边数
 > - 树的高度：其根节点的高度
 
-一个高度平衡的二叉查找树（**平衡二叉查找树**）是在插入和删除任何节点之后，可以自动保持其高度最小。也就是说，有 `N` 个节点的平衡二叉查找树，它的高度是 `logN`。并且，每个节点的两个子树的高度不会相差超过 1。
+一个高度平衡的二叉搜索树（**平衡二叉搜索树**）是在插入和删除任何节点之后，可以自动保持其高度最小。也就是说，有 `N` 个节点的平衡二叉搜索树，它的高度是 `logN`。并且，每个节点的两个子树的高度不会相差超过 1。
 
 > 为什么是 `log n` 呢？
 >
@@ -364,7 +364,7 @@ export default () => <img alt="二叉查找树-局限性" src={img} width="50%" 
 import React from 'react';
 import img from '../../assets/tree/binary-search-tree-and-balanced-binary-search-tree.png';
 
-export default () => <img alt="普通二叉查找树和高度凭很二叉查找树" src={img} width="35%" />;
+export default () => <img alt="普通二叉搜索树和高度凭很二叉搜索树" src={img} width="35%" />;
 ```
 
 根据定义，我们可以判断出一个二叉搜索树是否是高度平衡的 (平衡二叉树)。
@@ -390,7 +390,7 @@ export default () => <img alt="普通二叉查找树和高度凭很二叉查找�
 有许多不同的方法可以实现。尽管这些实现方法的细节有所不同，但他们有相同的目标:
 
 1. 采用的数据结构应该满足二分查找属性和高度平衡属性。
-2. 采用的数据结构应该支持二叉查找树的基本操作，包括在 `O(logN)` 时间内的搜索、插入和删除，即使在最坏的情况下也是如此。
+2. 采用的数据结构应该支持二叉搜索树的基本操作，包括在 `O(logN)` 时间内的搜索、插入和删除，即使在最坏的情况下也是如此。
 
 我们提供了一个常见的的高度平衡二叉树列表供您参考：
 
@@ -419,5 +419,5 @@ export default () => <img alt="普通二叉查找树和高度凭很二叉查找�
 
 **参考资料：**
 
-- [维基百科：二叉查找树](https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%85%83%E6%90%9C%E5%B0%8B%E6%A8%B9)
-- [JS 中的算法与数据结构——二叉查找树（Binary Sort Tree）](https://www.jianshu.com/p/6a4b7f261e99)
+- [维基百科：二叉搜索树](https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%85%83%E6%90%9C%E5%B0%8B%E6%A8%B9)
+- [JS 中的算法与数据结构——二叉搜索树（Binary Sort Tree）](https://www.jianshu.com/p/6a4b7f261e99)

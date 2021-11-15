@@ -64,27 +64,27 @@ export default () => <img alt="冒泡排序" src={img} width="64%" height="64%" 
 
 ```js
 const bubbleSort = function (arr) {
-    const len = arr.length;
+  const len = arr.length;
 
-    // 外循环控制从头到尾的比较+交换总共有多少轮
-    for (let i = 0; i < len; i++) {
-      // 内循环用于完成每轮遍历过程中的重复比较+交换
-      for (let j = 0; j < len - 1 - i; j++  {
-          if (arr[j] > arr[j + 1]) {
-            // 交换位置
-            [arr[j], arr[j+1]] = [arr[j+1], arr[j]]
-          }
-      })
+  // 外循环控制从头到尾的比较+交换总共有多少轮
+  for (let i = 0; i < len; i++) {
+    // 内循环用于完成每轮遍历过程中的重复比较+交换
+    for (let j = 0; j < len - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        // 交换位置
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
     }
+  }
 
-    return arr;
-}
+  return arr;
+};
 ```
 
 方法二：
 
 ```js
-const bubbleSort = function(arr) {
+const bubbleSort = function (arr) {
   // 初始时，最后未知保持不变
   let i = arr.length - 1;
 
@@ -108,7 +108,7 @@ const bubbleSort = function(arr) {
 方法三：正向冒泡+反向冒泡结合
 
 ```js
-const bubbleSort = function(arr) {
+const bubbleSort = function (arr) {
   // 设置变量的初始值
   let index,
     low = 0,

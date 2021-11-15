@@ -6,7 +6,7 @@ group:
   title: 数组
   order: 3
 title: 正则表达式
-order: 10
+order: 12
 ---
 
 # 正则表达式

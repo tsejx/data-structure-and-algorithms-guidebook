@@ -31,7 +31,7 @@ order: 206
 在遍历列表时，将当前节点的 `next` 指针改为指向前一个元素。由于节点没有引用其上一个节点，因此必须事先存储其前一个元素。在更改引用之前，还需要另一个指针来存储下一个节点。不要忘记在最后返回新的头引用！
 
 ```js
-var reverseLinkedList = function(head) {
+var reverseLinkedList = function (head) {
   if (!head || !head.next) return head;
 
   let prev = null,
@@ -46,6 +46,24 @@ var reverseLinkedList = function(head) {
 
   return prev;
 };
+```
+
+### 哑节点
+
+```js
+let dummy = new ListNode(0);
+dummy.next = head;
+
+while (head && head.next) {
+  let reverseNode = head.next;
+  let nextNode = reverseNode.next ? reverseNode.next : null;
+
+  reverseNode.next = dummy.next;
+  dummy.next = reverseNode;
+  head.next = nextNode;
+}
+
+return dummy.next;
 ```
 
 #### 复杂度分析
