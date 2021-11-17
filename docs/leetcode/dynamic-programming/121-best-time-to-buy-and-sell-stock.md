@@ -13,7 +13,7 @@ order: 121
 
 `动态规划`
 
-> 与《剑指 Offer》第 68 题相同
+> 与《剑指 Offer（第二版）》第 68 题相同
 
 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？
 
@@ -45,7 +45,7 @@ order: 121
 这种题目通常有当前变量 `cur` 和全局变量 `profit`。
 
 ```js
-const maxProfit = function(prices) {
+const maxProfit = function (prices) {
   let cur = 0,
     profit = 0;
   for (let i = 0; i < prices.length; i++) {
@@ -97,7 +97,7 @@ dp[i][1] = max(dp[i - 1][1], 0 - prices[i]);
 - **第四步：确定终止**：`dp[i - 1]`（`i` 为 `dp` 列表长度）
 
 ```js
-const maxProfit = function(prices) {
+const maxProfit = function (prices) {
   let dp = [[0, -prices[0]]];
   // 初始值 即 i = 0 时
   // dp[i][0]

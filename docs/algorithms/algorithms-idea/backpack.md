@@ -196,7 +196,7 @@ $$
 ### 代码实现
 
 ```js
-const knapsack = function(weights, values, W) {
+const knapsack = function (weights, values, W) {
   let f = [[]];
 
   // 先把第一行（i = 0）填满
@@ -238,7 +238,7 @@ const knapsack = function(weights, values, W) {
 现在方法里面有两个大循环，它们可以合并成一个：
 
 ```js
-const knapsack = function(weights, values, W) {
+const knapsack = function (weights, values, W) {
   let f = new Array(weights.length);
   // 为每一行添加数组
   for (let i = 0; i < n; i++) {
@@ -276,26 +276,32 @@ $$
 <br />
 
 ```js
-const knapsack = function(weights, values, W) {
-  let f = new Array(weights.length);
-  f[-1] = new Array(W + 1).fill(0);
+const knapsack = function (weights, values, W) {
+  // 数组定义：当背包容量为 i 时，装物品的最大价值
+  let dp = new Array(weights.length);
+  dp[-1] = new Array(W + 1).fill(0);
 
+  // 外循环：对应第 i 件物品
   for (let i = 0; i < weights.length; i++) {
     // 注意边界，没有等号
+    dp[i] = new Array(W).fill(0);
 
-    f[i] = new Array(W).fill(0);
-
+    // 内循环：容量
     for (let j = 0; j <= W; j++) {
       // 注意边界，有等号
+      // 第 i 件商品重量是否大于背包容量 j 的情况
       if (j < weights[i]) {
-        f[i][j] = f[i - 1][j];
+        // 如果大于，那么背包可装载的最大价值应该是第 i-1 件商品在同等背包容量 j 的情况下可装载的最大价值
+        // 当前物品，也就是第 i 件物品不装入背包
+        dp[i][j] = dp[i - 1][j];
       } else {
-        f[i][j] = Math.max(f[i - 1][j], f[i - 1][j - weights[i]] + values[i]);
+        // 如果小于等于，那么背包可装载的最大价值应该是 [第 i-1 件商品在同等背包重量 j 的情况下可装载最大价值 ] 和 [第 i-1 件商品在背包当前背包容量 j - 当前第 i 件物品重量 + 当前第 i 件物品价值] 之间的最大值
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weights[i]] + values[i]);
       }
     }
   }
 
-  return f[weights.length - 1][W];
+  return dp[weights.length - 1][W];
 };
 ```
 
@@ -303,9 +309,7 @@ const knapsack = function(weights, values, W) {
 
 ## 完全背包问题
 
----
-
-**参考资料：**
+## 参考资料
 
 - [📝 JavaScript 背包问题详解](https://segmentfault.com/a/1190000012829866)
 - [📝 动态规划套路秒杀背包问题（2020-07-15）](https://zhuanlan.zhihu.com/p/112075593)

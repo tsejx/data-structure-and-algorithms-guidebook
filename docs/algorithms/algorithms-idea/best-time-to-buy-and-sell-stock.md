@@ -11,12 +11,12 @@ order: 10
 
 # 股票买卖问题
 
-- 买卖股票的最佳时机（LeetCode 121）
-- 买卖股票的最佳时机 II（LeetCode 122）
-- 买卖股票的最佳时机 III（LeetCode 123）
-- 买卖股票的最佳时机 IV（LeetCode 309）
-- 最佳买卖股票时机含冷冻期（LeetCode 188）
-- 买卖股票的最佳时机含手续费（LeetCode 714）
+1. 买卖股票的最佳时机（LeetCode 121）
+2. 买卖股票的最佳时机 II（LeetCode 122）
+3. 买卖股票的最佳时机 III（LeetCode 123）
+4. 买卖股票的最佳时机 IV（LeetCode 309）
+5. 最佳买卖股票时机含冷冻期（LeetCode 188）
+6. 买卖股票的最佳时机含手续费（LeetCode 714）
 
 动态规划基本方程：
 
@@ -154,7 +154,7 @@ dp[i][k][1] = max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i]);
 ## 通用解法
 
 ```js
-const maxProfit = function(k, prices, fee, m) {
+const maxProfit = function (k, prices, fee, m) {
   if (k === 0 || prices === null || prices.length < 2) return 0;
 
   const len = prices.length;

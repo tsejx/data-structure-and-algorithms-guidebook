@@ -77,4 +77,36 @@ for (let i = nums.length - 1, j = 0; i >= 0; i--, j++) {
 
 ## 跳出双层循环的上层循环
 
-## 反向循环
+## 搜索问题
+
+### 找到从后往前第一位比右邻居小的数
+
+```js
+const nums = [2, 6, 3, 5, 4, 1];
+let i = nums.length - 2;
+
+while (i >= 0 && nums[i] >= nums[i + 1]) {
+  i--;
+}
+
+// i >= 0
+// i = -1 没有找到，说明数组是递减序列
+```
+
+## 边界问题
+
+### 跳过连续相同的项
+
+```js
+const nums = [0, 0, 1, 1, 2, 2, 3, 3, 4];
+for (let i = 0; i < nums.length; i++) {
+  if (i && nums[i] === nums[i - 1]) continue;
+
+  console.log(nums[i]);
+  // 0
+  // 1
+  // 2
+  // 3
+  // 4
+}
+```

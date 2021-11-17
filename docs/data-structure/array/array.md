@@ -152,6 +152,22 @@ export default () => <img alt="数组操作6" src={img} width="50%" height="50%"
 
 同样地，数组的长度为 `5`，最坏情况下，我们删除第一个元素，后面的 `4` 个元素需要向前移动，加上删除操作，共需执行 `5` 步，因此时间复杂度为 `O(N)`，`N` 为数组的长度。
 
----
+## 数组类型
+
+### 旋转数组
+
+## 相关题目
+
+- 旋转数组
+- 排列问题
+  - 31 下一个排列
+  - 46 全排列
+  - 47 全排列 II
+  - 60 排列序列
+  - 剑指 Offer II 083 没有重复元素集合的全排列
+  - 剑指 Offer II 084 含有重复元素集合的全排列
+- 矩形问题（二维数组）
+
+## 参考资料
 
 - [Data Structures in JavaScript: Arrays, HashMaps, and Lists](https://adrianmejia.com/data-structures-time-complexity-for-beginners-arrays-hashmaps-linked-lists-stacks-queues-tutorial/)

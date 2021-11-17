@@ -5,8 +5,8 @@ nav:
 group:
   title: 动态规划
   order: 23
-title: 122 - 买卖股票的最佳时机 III
-order: 122
+title: 123 - 买卖股票的最佳时机 III
+order: 123
 ---
 
 # 买卖股票的最佳时机 III
@@ -47,7 +47,7 @@ order: 122
 ## 解题思路
 
 ```js
-const maxProfit = function(prices) {
+const maxProfit = function (prices) {
   let cur = 0,
     profit = 0,
     len = prices.length;
