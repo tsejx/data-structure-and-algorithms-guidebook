@@ -123,15 +123,15 @@ const quickSort = function (arr) {
 <br />
 
 ```js
-function partition(arr, l, r) {
+function partition(arr, left, right) {
   // 基准值为数组的零号元素
-  let pivot = arr[l];
+  let pivot = arr[left];
   // 左区间的初始值
-  let lt = l;
+  let lt = left;
   // 右区间的初始值
-  let gt = r + 1;
+  let gt = right + 1;
 
-  for (let i = l + 1; i < gt; ) {
+  for (let i = left + 1; i < gt; ) {
     if (arr[i] === pivot) {
       // 当前 i 指向的元素等于 pivot
       i++;
@@ -148,24 +148,24 @@ function partition(arr, l, r) {
   }
 
   // i 走向 gt 处，除了基准值外的元素，其余的空间已经分区完毕，交换基准值与 lt 处的元素，最终得到我们需要的三个区间
-  [arr[l], arr[lt]] = [arr[lt], arr[l]];
+  [arr[left], arr[lt]] = [arr[lt], arr[left]];
   lt--;
 
   return { lt, gt };
 }
 
-function quickSort(arr, l, r) {
-  l = typeof l === 'number' ? l : 0;
-  r = typeof r === 'number' ? r : arr.length - 1;
+function quickSort(arr, left, right) {
+  left = typeof left === 'number' ? left : 0;
+  right = typeof right === 'number' ? right : arr.length - 1;
 
   // 当前数组的起始位置大于等于数组的末尾时退出递归
-  if (l >= r) return;
+  if (left >= right) return;
 
-  const { lt, gt } = partition(arr, l, r);
+  const { lt, gt } = partition(arr, left, right);
 
   // 递归执行：将没有大于 pivot，和小于 pivot 区间的元素再进行三路快排
-  quickSort(arr, l, lt);
-  quickSort(arr, gt, r);
+  quickSort(arr, left, lt);
+  quickSort(arr, gt, right);
 
   return arr;
 }
